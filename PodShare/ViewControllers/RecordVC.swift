@@ -18,19 +18,18 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
 
-    var numOfRecords: Int = 0
-
     var recordings: [Record] = []
 
     @IBAction func record(_ sender: Any) {
         if audioRecorder == nil {
 
-            numOfRecords += 1
+            let newEntry = self.recordings.count + 1
 
-            let fileName = getDirectory().appendingPathComponent("\(numOfRecords).m4a")
+            let fileName = getDirectory().appendingPathComponent("\(newEntry).m4a")
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
 
-            //Start Recording
+            //START Recording
+
             do {
                 audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
                 audioRecorder.delegate = self
@@ -41,13 +40,17 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             } catch {
                 self.displayAlert(title: "Error", message: "Recording failed")
             }
+
+            //STOP recording
+
         } else {
-            //Stop recording
+
             audioRecorder.stop()
             audioRecorder = nil
 
-            UserDefaults.standard.set(self.numOfRecords, forKey: "myNumber")
-            UserDefaults.standard.set(self.recordings, forKey: "myRecordings")
+            self.refreshRecordings()
+
+            UserDefaults.standard.set(self.recordings.count, forKey: "myNumber")
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -61,68 +64,23 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         super.viewDidLoad()
         self.setup()
 
-
-        recordingSession = AVAudioSession.sharedInstance()
-        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
-            if hasPermission {
-                print("User grants permission!")
-            } else {
-                print("ERROR - User does not grant permission")
-                return
-            }
-        }
-
-
-//        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
-//            for i in enumerator {
-//                let audioFile = i as! NSURL
-//                self.recordings.append(audioFile)
-//            }
-//        }
-
-        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
-            for i in enumerator {
-                let audioFile = i as! NSURL
-
-                let filePath = audioFile.path
-
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: filePath!) as? NSDictionary
-                    if let fileTimeStamp = attr?.fileCreationDate()?.description {
-                        let eachRecording = Record(file: audioFile, timestamp: fileTimeStamp)
-                        self.recordings.append(eachRecording)
-                    }
-
-                } catch {
-                    print(error.localizedDescription)
-                }
-
-            }
-        }
-
-        for i in self.recordings {
-            print(i.file)
-            print(i.timestamp)
-        }
-
-
-        //When we make a new recording, use existing numRecords
-
-        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-            self.numOfRecords = number
-        }
+        self.askMicPermission()
+        self.refreshRecordings()
 
     }
 
     // MARK: UITableView Datasource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numOfRecords
+        return self.recordings.count
 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "nibIdentifier", for: indexPath) as! RecordCell
+
+        let eachRecord = self.recordings[indexPath.row]
+        cell.configure(record: eachRecord)
 
         cell.titleLabel.text = String(indexPath.row + 1)
 
@@ -145,15 +103,49 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     }
 
+    func refreshRecordings() {
+        var existingRecords: [Record] = []
+
+        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
+            for i in enumerator {
+                let audioFile = i as! NSURL
+                let filePath = audioFile.path
+
+                do {
+                    let attr = try FileManager.default.attributesOfItem(atPath: filePath!) as? NSDictionary
+                    if let fileTimeStamp = attr?.fileCreationDate()?.description {
+                        let eachRecording = Record(file: audioFile, timestamp: fileTimeStamp)
+
+                        existingRecords.append(eachRecording)
+                        self.recordings = existingRecords
+                    }
+
+                } catch {
+                    print(error.localizedDescription)
+                }
+
+            }
+        }
+
+    }
+
+    func askMicPermission() {
+        recordingSession = AVAudioSession.sharedInstance()
+        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
+            if hasPermission {
+                print("User grants permission!")
+            } else {
+                print("ERROR - User does not grant permission")
+                return
+            }
+        }
+    }
+
     func getDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
         return documentDirectory
     }
-
-
-
-
 
     func setup() {
         self.tabBarItem.title = "Record"
