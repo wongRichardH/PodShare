@@ -17,4 +17,5 @@ class Record {
         self.file = file
         self.timestamp = timestamp
     }
+
 }

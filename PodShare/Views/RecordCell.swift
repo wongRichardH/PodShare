@@ -21,5 +21,9 @@ class RecordCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
+
+    func configure(record: Record) {
+        self.dateRecordLabel.text = record.timestamp
+    }
     
 }
