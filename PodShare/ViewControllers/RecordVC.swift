@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate {
+class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var recordLabel: UIButton!
@@ -79,6 +79,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "nibIdentifier", for: indexPath) as! RecordCell
 
+        cell.delegate = self
+
         let eachRecord = self.recordings[indexPath.row]
         cell.configure(record: eachRecord)
 
@@ -101,6 +103,25 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             print(error.localizedDescription)
         }
 
+    }
+    // MARK: RecordCellDelegate
+
+    func editButtonDidSelect(cell: RecordCell) {
+        let nib = UINib(nibName: "EditCellView", bundle: nil)
+
+        let editView = nib.instantiate(withOwner: nil, options: nil).first as! EditCellView
+
+        self.view.addSubview(editView)
+
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: self.view.frame.height/2, height: self.view.frame.height/2)
+
+        editView.frame = CGRect(origin: viewCenter, size: viewSize)
+        editView.center = self.view.center
+
+        editView.backgroundColor = UIColor.red
+
+        print("hello")
     }
 
     func refreshRecordings() {
