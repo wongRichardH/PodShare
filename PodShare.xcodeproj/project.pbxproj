@@ -14,6 +14,14 @@
 		79241B3C211ABB2F00385912 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79241B3A211ABB2F00385912 /* LaunchScreen.storyboard */; };
 		79241B47211ABB2F00385912 /* PodShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B46211ABB2F00385912 /* PodShareTests.swift */; };
 		79241B52211ABB2F00385912 /* PodShareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B51211ABB2F00385912 /* PodShareUITests.swift */; };
+		79241B61211ABB3E00385912 /* RecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B5F211ABB3E00385912 /* RecordVC.swift */; };
+		79241B62211ABB3E00385912 /* RecordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B60211ABB3E00385912 /* RecordVC.xib */; };
+		79241B66211ABD7C00385912 /* FriendsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B64211ABD7C00385912 /* FriendsFeedVC.swift */; };
+		79241B67211ABD7C00385912 /* FriendsFeedVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B65211ABD7C00385912 /* FriendsFeedVC.xib */; };
+		79241B6B211AE49800385912 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B69211AE49800385912 /* RecordCell.swift */; };
+		79241B6C211AE49800385912 /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B6A211AE49800385912 /* RecordCell.xib */; };
+		79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B6E211B937600385912 /* NSDate+Parse.swift */; };
+		79241B72211BA9EE00385912 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B71211BA9EE00385912 /* Record.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,14 @@
 		79241B4D211ABB2F00385912 /* PodShareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodShareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79241B51211ABB2F00385912 /* PodShareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodShareUITests.swift; sourceTree = "<group>"; };
 		79241B53211ABB2F00385912 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79241B5F211ABB3E00385912 /* RecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVC.swift; sourceTree = "<group>"; };
+		79241B60211ABB3E00385912 /* RecordVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordVC.xib; sourceTree = "<group>"; };
+		79241B64211ABD7C00385912 /* FriendsFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedVC.swift; sourceTree = "<group>"; };
+		79241B65211ABD7C00385912 /* FriendsFeedVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsFeedVC.xib; sourceTree = "<group>"; };
+		79241B69211AE49800385912 /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		79241B6A211AE49800385912 /* RecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
+		79241B6E211B937600385912 /* NSDate+Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Parse.swift"; sourceTree = "<group>"; };
+		79241B71211BA9EE00385912 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +113,10 @@
 		79241B30211ABB2E00385912 /* PodShare */ = {
 			isa = PBXGroup;
 			children = (
+				79241B70211BA9DB00385912 /* Models */,
+				79241B6D211B935F00385912 /* Extensions */,
+				79241B68211AE47C00385912 /* Views */,
+				79241B63211ABB4500385912 /* ViewControllers */,
 				79241B31211ABB2E00385912 /* AppDelegate.swift */,
 				79241B33211ABB2E00385912 /* ViewController.swift */,
 				79241B35211ABB2E00385912 /* Main.storyboard */,
@@ -123,6 +143,42 @@
 				79241B53211ABB2F00385912 /* Info.plist */,
 			);
 			path = PodShareUITests;
+			sourceTree = "<group>";
+		};
+		79241B63211ABB4500385912 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				79241B5F211ABB3E00385912 /* RecordVC.swift */,
+				79241B60211ABB3E00385912 /* RecordVC.xib */,
+				79241B64211ABD7C00385912 /* FriendsFeedVC.swift */,
+				79241B65211ABD7C00385912 /* FriendsFeedVC.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		79241B68211AE47C00385912 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79241B69211AE49800385912 /* RecordCell.swift */,
+				79241B6A211AE49800385912 /* RecordCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		79241B6D211B935F00385912 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				79241B6E211B937600385912 /* NSDate+Parse.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		79241B70211BA9DB00385912 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79241B71211BA9EE00385912 /* Record.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,9 +285,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79241B6C211AE49800385912 /* RecordCell.xib in Resources */,
 				79241B3C211ABB2F00385912 /* LaunchScreen.storyboard in Resources */,
+				79241B62211ABB3E00385912 /* RecordVC.xib in Resources */,
 				79241B39211ABB2F00385912 /* Assets.xcassets in Resources */,
 				79241B37211ABB2E00385912 /* Main.storyboard in Resources */,
+				79241B67211ABD7C00385912 /* FriendsFeedVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,8 +315,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79241B61211ABB3E00385912 /* RecordVC.swift in Sources */,
 				79241B34211ABB2E00385912 /* ViewController.swift in Sources */,
+				79241B66211ABD7C00385912 /* FriendsFeedVC.swift in Sources */,
 				79241B32211ABB2E00385912 /* AppDelegate.swift in Sources */,
+				79241B72211BA9EE00385912 /* Record.swift in Sources */,
+				79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */,
+				79241B6B211AE49800385912 /* RecordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
