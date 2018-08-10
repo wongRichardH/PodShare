@@ -74,7 +74,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         cell.delegate = self
         let eachRecord = self.recordings[indexPath.row]
         cell.configure(record: eachRecord)
-        cell.titleLabel.text = String(indexPath.row + 1)
+//        cell.titleLabel.text = String(indexPath.row + 1)
+        cell.titleLabel.text = eachRecord.name
 
         return cell
     }
@@ -141,16 +142,12 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         cell.titleLabel.text = text
 
-//        self.refreshRecordings()
+        self.refreshRecordings()
 
-        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
-            print("BEGINNING")
-            for i in enumerator {
-                let audioFile = i as! NSURL
-                let filePath = audioFile.path
-
-                print(filePath ?? "")
-            }
+        for i in self.recordings {
+            print("ANOTHER ENTRY")
+            let testTuple = (i.name, i.timestamp, i.fileURL)
+            print(testTuple)
         }
 
 //        DispatchQueue.main.async {
@@ -173,7 +170,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                     
                     if let fileTimeStamp = attr?.fileCreationDate()?.description {
                         let nsStringPath = filePath! as NSString
-                        let fileName = nsStringPath.lastPathComponent
+                        let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
+
                         let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL)
 
                         existingRecords.append(eachRecord)

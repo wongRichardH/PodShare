@@ -32,6 +32,7 @@ class RecordCell: UITableViewCell {
     }
 
     func configure(record: Record) {
+        self.titleLabel.text = record.name
         self.dateRecordLabel.text = record.timestamp
     }
 

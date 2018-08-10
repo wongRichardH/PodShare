@@ -6,15 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PodShare/ViewControllers/RecordVC.swift"
-            timestampString = "555632623.555951"
+            timestampString = "555634743.187829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "renameButtonDidSelect(text:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PodShare/ViewControllers/RecordVC.swift"
-            timestampString = "555632623.556536"
+            timestampString = "555634743.188225"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "renameButtonDidSelect(text:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PodShare/ViewControllers/RecordVC.swift"
+            timestampString = "555634743.188442"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "renameButtonDidSelect(text:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>

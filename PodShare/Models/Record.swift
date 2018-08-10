@@ -18,7 +18,5 @@ class Record {
         self.name = name
         self.timestamp = timestamp
         self.fileURL = fileURL
-
     }
-
 }
