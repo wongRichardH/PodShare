@@ -10,12 +10,13 @@ import Foundation
 
 class Record {
 
-    var file: NSURL
+    var name: String
     var timestamp: String
+    var fileURL: NSURL
 
-    init(file: NSURL, timestamp: String) {
-        self.file = file
+    init(name: String, timestamp: String, fileURL: NSURL) {
+        self.name = name
         self.timestamp = timestamp
+        self.fileURL = fileURL
     }
-
 }

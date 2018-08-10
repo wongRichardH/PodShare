@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.98999999999999999" contentMode="scaleToFill" id="iN0-l3-epB" customClass="EditCellView" customModule="PodShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="237"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMQ-ED-F31">
+                    <rect key="frame" x="333" y="20" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="km1-vj-ta9"/>
+                    </constraints>
+                    <state key="normal" image="x"/>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d34-A6-2Z8">
+                    <rect key="frame" x="75" y="84" width="228" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="228" id="JGB-Hn-cab"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMD-TN-0gS">
+                    <rect key="frame" x="134" y="122" width="112" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="112" id="vyh-ea-SxK"/>
+                    </constraints>
+                    <state key="normal" title="Rename"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.97370070219039917" green="0.92564094066619873" blue="0.90845412015914917" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="d34-A6-2Z8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="84" id="15S-hi-DXm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="FMD-TN-0gS" secondAttribute="bottom" constant="85" id="4wy-AB-4ce"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FMD-TN-0gS" secondAttribute="trailing" constant="133" id="9ra-gt-k3U"/>
+                <constraint firstItem="FMD-TN-0gS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="134" id="Ij4-oZ-3Bc"/>
+                <constraint firstItem="d34-A6-2Z8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="75" id="Xbw-NZ-Gl3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jMQ-ED-F31" secondAttribute="bottom" constant="187" id="d1c-VC-3dW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="d34-A6-2Z8" secondAttribute="trailing" constant="76" id="etr-ez-cZ0"/>
+                <constraint firstItem="jMQ-ED-F31" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="fzY-fe-hht"/>
+                <constraint firstItem="jMQ-ED-F31" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="gTh-GI-MDf"/>
+                <constraint firstItem="FMD-TN-0gS" firstAttribute="top" secondItem="d34-A6-2Z8" secondAttribute="bottom" constant="8" id="wpH-Ll-HVo"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelButton" destination="jMQ-ED-F31" id="aMX-EW-Idx"/>
+                <outlet property="renameButton" destination="FMD-TN-0gS" id="rrh-Ag-wOA"/>
+                <outlet property="textField" destination="d34-A6-2Z8" id="4nR-79-vlO"/>
+            </connections>
+            <point key="canvasLocation" x="-67.5" y="-364.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="x" width="50" height="50"/>
+    </resources>
+</document>

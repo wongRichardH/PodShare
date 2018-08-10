@@ -22,6 +22,8 @@
 		79241B6C211AE49800385912 /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B6A211AE49800385912 /* RecordCell.xib */; };
 		79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B6E211B937600385912 /* NSDate+Parse.swift */; };
 		79241B72211BA9EE00385912 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B71211BA9EE00385912 /* Record.swift */; };
+		79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE0576211C31CB001A8D3A /* EditCellView.swift */; };
+		79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE0578211C31E9001A8D3A /* EditCellView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		79241B6A211AE49800385912 /* RecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
 		79241B6E211B937600385912 /* NSDate+Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Parse.swift"; sourceTree = "<group>"; };
 		79241B71211BA9EE00385912 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		79CE0576211C31CB001A8D3A /* EditCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellView.swift; sourceTree = "<group>"; };
+		79CE0578211C31E9001A8D3A /* EditCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCellView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,8 @@
 			children = (
 				79241B69211AE49800385912 /* RecordCell.swift */,
 				79241B6A211AE49800385912 /* RecordCell.xib */,
+				79CE0576211C31CB001A8D3A /* EditCellView.swift */,
+				79CE0578211C31E9001A8D3A /* EditCellView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 				79241B3C211ABB2F00385912 /* LaunchScreen.storyboard in Resources */,
 				79241B62211ABB3E00385912 /* RecordVC.xib in Resources */,
 				79241B39211ABB2F00385912 /* Assets.xcassets in Resources */,
+				79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */,
 				79241B37211ABB2E00385912 /* Main.storyboard in Resources */,
 				79241B67211ABD7C00385912 /* FriendsFeedVC.xib in Resources */,
 			);
@@ -321,6 +328,7 @@
 				79241B32211ABB2E00385912 /* AppDelegate.swift in Sources */,
 				79241B72211BA9EE00385912 /* Record.swift in Sources */,
 				79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */,
+				79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */,
 				79241B6B211AE49800385912 /* RecordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
