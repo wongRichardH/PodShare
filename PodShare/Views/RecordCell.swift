@@ -24,13 +24,11 @@ class RecordCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         self.editButton.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
 
     func configure(record: Record) {
