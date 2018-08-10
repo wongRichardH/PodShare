@@ -24,17 +24,20 @@ class EditCellView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.textFieldSetup()
+        self.setup()
 
         self.renameButton.addTarget(self, action: #selector(renameButtonPressed), for: .touchUpInside)
         self.cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
     }
 
-    func textFieldSetup() {
+    func setup() {
         self.textField.textAlignment = .center
         self.textField.autocapitalizationType = .sentences
         self.textField.autocorrectionType = .default
         self.textField.spellCheckingType = .no
+
+        self.layer.cornerRadius = 4.0
+
     }
 
     @objc func cancelButtonPressed() {

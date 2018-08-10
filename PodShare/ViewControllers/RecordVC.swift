@@ -55,12 +55,18 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         self.setup()
         self.askMicPermission()
         self.refreshRecordings()
+
+//        for i in self.recordings {
+//            print("ANOTHER ENTRY")
+//            let testTuple = (i.name, i.timestamp, i.fileURL)
+//            print(testTuple)
+//        }
+
     }
 
     // MARK: UITableView Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.recordings.count
-
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,9 +84,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let cellAtIndexPath = self.tableView.cellForRow(at: indexPath) as! RecordCell
         let cellName = cellAtIndexPath.titleLabel.text ?? ""
-        print(cellName)
-
-//        let path = getDirectory().appendingPathComponent("\(indexPath.row + 1).m4a")
 
         let path = getDirectory().appendingPathComponent("\(cellName).m4a")
 
@@ -107,9 +110,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         editView.center = self.view.center
 
 
-        //need to pass indexPath
+        //Pass additional properties
         let editCellIndexPath = self.tableView.indexPath(for: cell)
         editView.cellIndexPath = editCellIndexPath
+
+        editView.textField.text = cell.titleLabel.text
 
     }
 
@@ -119,61 +124,65 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         view.delegate = self
 
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordCell
-        cell.titleLabel.text = text
 
-        //Get name of cell from within Userdefaults to supply textField with default string value
         let currentName = cell.titleLabel.text ?? ""
-        //Grab name from userdefault
+
         do {
             let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             let documentDirectory = URL(fileURLWithPath: path)
             let originPath = documentDirectory.appendingPathComponent("\(currentName).m4a")
             let destinationPath = documentDirectory.appendingPathComponent("\(text).m4a")
             try FileManager.default.moveItem(at: originPath, to: destinationPath)
-        } catch {
-            print(error.localizedDescription)
+
+        }
+        catch {
+            print("error trying to name file")
         }
 
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        cell.titleLabel.text = text
 
+//        self.refreshRecordings()
 
         if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
+            print("BEGINNING")
             for i in enumerator {
                 let audioFile = i as! NSURL
                 let filePath = audioFile.path
 
-                print(audioFile.relativePath ?? "")
+                print(filePath ?? "")
             }
         }
 
-    }
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
 
+    }
 
     func refreshRecordings() {
         var existingRecords: [Record] = []
 
         if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
-            for i in enumerator {
-                let audioFile = i as! NSURL
-                let filePath = audioFile.path
+
+            for file in enumerator {
+                let audioFileURL = file as! NSURL
+                let filePath = audioFileURL.path
 
                 do {
                     let attr = try FileManager.default.attributesOfItem(atPath: filePath!) as? NSDictionary
                     
-                    print(audioFile.relativePath ?? "")
-
                     if let fileTimeStamp = attr?.fileCreationDate()?.description {
-                        let eachRecording = Record(file: audioFile, timestamp: fileTimeStamp)
+                        let nsStringPath = filePath! as NSString
+                        let fileName = nsStringPath.lastPathComponent
+                        let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL)
 
-                        existingRecords.append(eachRecording)
-                        self.recordings = existingRecords
+                        existingRecords.append(eachRecord)
                     }
                 } catch {
-                    print(error.localizedDescription)
+                    print(error)
                 }
             }
+            self.recordings = existingRecords
         }
     }
 

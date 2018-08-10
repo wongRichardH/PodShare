@@ -38,5 +38,6 @@ class RecordCell: UITableViewCell {
     @objc func editButtonPressed() {
         self.delegate?.editButtonDidSelect(cell: self)
     }
+
     
 }
