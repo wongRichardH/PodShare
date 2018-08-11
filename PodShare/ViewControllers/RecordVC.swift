@@ -95,6 +95,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             print(error.localizedDescription)
         }
     }
+
     // MARK: RecordCellDelegate
 
     func editButtonDidSelect(cell: RecordCell) {
@@ -102,7 +103,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let nib = UINib(nibName: "EditCellView", bundle: nil)
         let editView = nib.instantiate(withOwner: nil, options: nil).first as! EditCellView
 
-        editView.delegate = self
+//        editView.delegate = self
 
         self.view.addSubview(editView)
         let viewCenter = self.view.center
@@ -119,7 +120,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     }
 
-    // MARK: EditCellView Delegate
+    // MARK: EditCellViewDelegate
     func renameButtonDidSelect(text: String, indexPath: IndexPath) {
         let view = EditCellView()
         view.delegate = self
@@ -146,15 +147,29 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         for i in self.recordings {
             print("ANOTHER ENTRY")
-            let testTuple = (i.name, i.timestamp, i.fileURL)
+            let testTuple = i.name
             print(testTuple)
         }
 
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-
     }
+
+    // MARK: deleteButtonDidSelectDelegate
+    func deleteButtonDidSelect(cell: RecordCell) {
+        //present view
+        let nib = UINib(nibName: "DeleteCellView", bundle: nil)
+        let deleteView = nib.instantiate(withOwner: nil, options: nil).first as! DeleteCellView
+
+
+        self.view.addSubview(deleteView)
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: deleteView.frame.width, height: deleteView.frame.height)
+        deleteView.frame = CGRect(origin: viewCenter, size: viewSize)
+        deleteView.center = self.view.center
+
+        //delete from data
+        //then, remove from tableview
+    }
+
 
     func refreshRecordings() {
         var existingRecords: [Record] = []

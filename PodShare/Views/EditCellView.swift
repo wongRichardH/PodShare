@@ -28,6 +28,7 @@ class EditCellView: UIView {
 
         self.renameButton.addTarget(self, action: #selector(renameButtonPressed), for: .touchUpInside)
         self.cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
+
     }
 
     func setup() {
