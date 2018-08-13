@@ -36,7 +36,6 @@ class EditCellView: UIView {
         self.textField.autocapitalizationType = .sentences
         self.textField.autocorrectionType = .default
         self.textField.spellCheckingType = .no
-
         self.layer.cornerRadius = 4.0
 
     }

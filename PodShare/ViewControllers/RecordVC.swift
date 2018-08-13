@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate{
+class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var recordLabel: UIButton!
@@ -31,13 +31,12 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
-                self.recordLabel.setTitle("Stop Recording", for: .normal)
+                self.recordLabel.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
             } catch {
                 self.displayAlert(title: "Error", message: "Recording failed")
             }
+            //STOP Recording
         } else {
-            //STOP recording
-
             audioRecorder.stop()
             audioRecorder = nil
             self.refreshRecordings()
@@ -46,7 +45,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            recordLabel.setTitle("Record", for: .normal)
+            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
         }
     }
 
@@ -55,12 +54,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         self.setup()
         self.askMicPermission()
         self.refreshRecordings()
-
-//        for i in self.recordings {
-//            print("ANOTHER ENTRY")
-//            let testTuple = (i.name, i.timestamp, i.fileURL)
-//            print(testTuple)
-//        }
 
     }
 
@@ -74,9 +67,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         cell.delegate = self
         let eachRecord = self.recordings[indexPath.row]
         cell.configure(record: eachRecord)
-//        cell.titleLabel.text = String(indexPath.row + 1)
         cell.titleLabel.text = eachRecord.name
-
         return cell
     }
 
@@ -85,7 +76,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let cellAtIndexPath = self.tableView.cellForRow(at: indexPath) as! RecordCell
         let cellName = cellAtIndexPath.titleLabel.text ?? ""
-
         let path = getDirectory().appendingPathComponent("\(cellName).m4a")
 
         do {
@@ -103,14 +93,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let nib = UINib(nibName: "EditCellView", bundle: nil)
         let editView = nib.instantiate(withOwner: nil, options: nil).first as! EditCellView
 
-//        editView.delegate = self
+        editView.delegate = self
 
         self.view.addSubview(editView)
         let viewCenter = self.view.center
         let viewSize = CGSize(width: editView.frame.width, height: editView.frame.height)
         editView.frame = CGRect(origin: viewCenter, size: viewSize)
         editView.center = self.view.center
-
 
         //Pass additional properties
         let editCellIndexPath = self.tableView.indexPath(for: cell)
@@ -126,7 +115,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         view.delegate = self
 
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordCell
-
         let currentName = cell.titleLabel.text ?? ""
 
         do {
@@ -135,21 +123,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             let originPath = documentDirectory.appendingPathComponent("\(currentName).m4a")
             let destinationPath = documentDirectory.appendingPathComponent("\(text).m4a")
             try FileManager.default.moveItem(at: originPath, to: destinationPath)
-
         }
         catch {
             print("error trying to name file")
         }
 
         cell.titleLabel.text = text
-
         self.refreshRecordings()
-
-        for i in self.recordings {
-            print("ANOTHER ENTRY")
-            let testTuple = i.name
-            print(testTuple)
-        }
 
     }
 
@@ -158,7 +138,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         //present view
         let nib = UINib(nibName: "DeleteCellView", bundle: nil)
         let deleteView = nib.instantiate(withOwner: nil, options: nil).first as! DeleteCellView
+        deleteView.delegate = self
 
+        if let cellTitleName = cell.titleLabel.text {
+            deleteView.warningLabel.text = "Delete \(cellTitleName)?"
+        }
 
         self.view.addSubview(deleteView)
         let viewCenter = self.view.center
@@ -166,10 +150,40 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         deleteView.frame = CGRect(origin: viewCenter, size: viewSize)
         deleteView.center = self.view.center
 
-        //delete from data
-        //then, remove from tableview
+        deleteView.cellName = cell.titleLabel.text
+
     }
 
+    // MARK: DeleteCellViewDelegate
+    func deleteAudioDidSelected(cell: DeleteCellView, cellName: String) {
+        let view = DeleteCellView()
+        view.delegate = self
+        let cellName = cell.cellName ?? ""
+
+        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
+
+            for file in enumerator {
+                let audioFileURL = file as! NSURL
+                let filePath = audioFileURL.path ?? ""
+
+                do {
+                    let nsStringPath = filePath as NSString
+                    let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
+                    if cellName == fileName {
+                        try FileManager.default.removeItem(atPath: filePath)
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        self.refreshRecordings()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+
+    }
 
     func refreshRecordings() {
         var existingRecords: [Record] = []
@@ -178,18 +192,20 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
             for file in enumerator {
                 let audioFileURL = file as! NSURL
-                let filePath = audioFileURL.path
+                guard let filePath = audioFileURL.path else {return}
 
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: filePath!) as? NSDictionary
+                    let attr = try FileManager.default.attributesOfItem(atPath: filePath) as? NSDictionary
                     
                     if let fileTimeStamp = attr?.fileCreationDate()?.description {
-                        let nsStringPath = filePath! as NSString
+                        let nsStringPath = filePath as NSString
+                        let lastComponent = nsStringPath.lastPathComponent.split(separator: ".")
                         let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
 
-                        let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL)
-
-                        existingRecords.append(eachRecord)
+                        if lastComponent[0] != "DS_Store" {
+                            let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL)
+                            existingRecords.append(eachRecord)
+                        }
                     }
                 } catch {
                     print(error)
@@ -202,9 +218,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     func askMicPermission() {
         recordingSession = AVAudioSession.sharedInstance()
         AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
-            if hasPermission {
-                print("User grants permission!")
-            } else {
+            if !hasPermission {
                 print("ERROR - User does not grant permission")
                 return
             }
@@ -230,5 +244,21 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+
+    func printDirectoryNames() {
+        if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
+
+            for file in enumerator {
+                let audioFileURL = file as! NSURL
+                let filePath = audioFileURL.path
+
+                do {
+                    let nsStringPath = filePath! as NSString
+                    let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
+                    print(fileName)
+                }
+            }
+        }
     }
 }

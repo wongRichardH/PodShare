@@ -24,12 +24,12 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDk-UB-eak">
-                    <rect key="frame" x="127" y="163" width="125" height="47"/>
+                    <rect key="frame" x="127" y="162.5" width="125" height="47"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="125" id="DpX-WG-w4f"/>
                         <constraint firstAttribute="height" constant="47" id="fJT-2H-0Yl"/>
                     </constraints>
-                    <state key="normal" title="Delete"/>
+                    <state key="normal" title="Confirm"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzJ-Z0-cjT">
                     <rect key="frame" x="333" y="20" width="30" height="30"/>
@@ -39,18 +39,27 @@
                     </constraints>
                     <state key="normal" image="x"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warningMessage" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvd-t1-e0j">
+                    <rect key="frame" x="26" y="143" width="327" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="y6y-XG-WLK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="49" id="CAC-IB-2EJ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DzJ-Z0-cjT" secondAttribute="bottom" constant="187" id="KCE-2o-zUC"/>
-                <constraint firstItem="DzJ-Z0-cjT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="Ky5-8u-HL8"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SDk-UB-eak" secondAttribute="trailing" constant="127" id="PuZ-0V-oVO"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="y6y-XG-WLK" secondAttribute="trailing" constant="127" id="avi-K7-bfe"/>
-                <constraint firstItem="SDk-UB-eak" firstAttribute="top" secondItem="y6y-XG-WLK" secondAttribute="bottom" constant="37" id="er8-6r-QD0"/>
-                <constraint firstItem="SDk-UB-eak" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="iHk-MI-ZED"/>
-                <constraint firstItem="y6y-XG-WLK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="rGW-pn-1MD"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SDk-UB-eak" secondAttribute="bottom" constant="27" id="t8L-oL-CV3"/>
+                <constraint firstItem="y6y-XG-WLK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="49" id="2Tg-By-kHG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SDk-UB-eak" secondAttribute="trailing" constant="127" id="6RU-np-MI7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="y6y-XG-WLK" secondAttribute="trailing" constant="127" id="7IU-WW-Fjl"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DzJ-Z0-cjT" secondAttribute="bottom" constant="187" id="8Dv-i2-E3W"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SDk-UB-eak" secondAttribute="bottom" constant="27.5" id="9cg-b9-ew9"/>
+                <constraint firstItem="DzJ-Z0-cjT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="Of1-5Q-Beg"/>
+                <constraint firstItem="qvd-t1-e0j" firstAttribute="top" secondItem="y6y-XG-WLK" secondAttribute="bottom" constant="17" id="UCt-8f-mel"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qvd-t1-e0j" secondAttribute="trailing" constant="26" id="XeY-YS-XXY"/>
+                <constraint firstItem="qvd-t1-e0j" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="26" id="dyY-dQ-pAH"/>
+                <constraint firstItem="SDk-UB-eak" firstAttribute="top" secondItem="qvd-t1-e0j" secondAttribute="bottom" constant="-1" id="sgC-3o-d9m"/>
+                <constraint firstItem="y6y-XG-WLK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="xtd-Im-KPP"/>
+                <constraint firstItem="SDk-UB-eak" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="yea-6T-p4h"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -58,6 +67,7 @@
                 <outlet property="deleteButton" destination="SDk-UB-eak" id="ObD-do-IcB"/>
                 <outlet property="dismissViewButton" destination="DzJ-Z0-cjT" id="zJh-3K-qPu"/>
                 <outlet property="imageView" destination="y6y-XG-WLK" id="nzl-Dz-GVi"/>
+                <outlet property="warningLabel" destination="qvd-t1-e0j" id="JjW-l1-8uE"/>
             </connections>
             <point key="canvasLocation" x="137.5" y="53.5"/>
         </view>
