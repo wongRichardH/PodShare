@@ -23,12 +23,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ks-rW-zQk">
-                    <rect key="frame" x="0.0" y="224" width="375" height="443"/>
+                    <rect key="frame" x="0.0" y="197" width="375" height="470"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5L-ao-H62">
-                    <rect key="frame" x="163" y="111" width="49" height="30"/>
-                    <state key="normal" title="Record"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5L-ao-H62">
+                    <rect key="frame" x="162" y="78" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="IGw-df-X5C"/>
+                        <constraint firstAttribute="height" constant="50" id="hbm-Uh-xlc"/>
+                    </constraints>
+                    <state key="normal" title="Record" image="microphone"/>
                     <connections>
                         <action selector="record:" destination="-1" eventType="touchUpInside" id="g5a-JL-O1J"/>
                     </connections>
@@ -36,16 +40,19 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0ks-rW-zQk" secondAttribute="bottom" id="4ci-Te-mP3"/>
-                <constraint firstItem="0ks-rW-zQk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9wg-Vb-Vot"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="h5L-ao-H62" secondAttribute="trailing" constant="163" id="HbH-Wk-quI"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0ks-rW-zQk" secondAttribute="trailing" id="TF4-4p-hoc"/>
-                <constraint firstItem="h5L-ao-H62" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="91" id="c6P-cC-rBQ"/>
-                <constraint firstItem="h5L-ao-H62" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="163" id="dyC-Kx-PIz"/>
-                <constraint firstItem="0ks-rW-zQk" firstAttribute="top" secondItem="h5L-ao-H62" secondAttribute="bottom" constant="83" id="yyt-yp-dPG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0ks-rW-zQk" secondAttribute="bottom" id="AQ8-Eo-apo"/>
+                <constraint firstItem="h5L-ao-H62" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="58" id="EYu-WQ-x9y"/>
+                <constraint firstItem="h5L-ao-H62" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="162" id="RfT-2M-Atw"/>
+                <constraint firstItem="0ks-rW-zQk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VaY-uo-rqJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0ks-rW-zQk" secondAttribute="trailing" id="Yoe-8i-zwX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="h5L-ao-H62" secondAttribute="trailing" constant="163" id="aAK-Jp-LON"/>
+                <constraint firstItem="0ks-rW-zQk" firstAttribute="top" secondItem="h5L-ao-H62" secondAttribute="bottom" constant="69" id="mXJ-Hb-kWV"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="115.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="microphone" width="50" height="50"/>
+    </resources>
 </document>

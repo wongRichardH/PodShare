@@ -10,6 +10,7 @@ import UIKit
 
 protocol RecordCellDelegate: class {
     func editButtonDidSelect(cell: RecordCell)
+    func deleteButtonDidSelect(cell: RecordCell)
 }
 
 class RecordCell: UITableViewCell {
@@ -25,6 +26,7 @@ class RecordCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.editButton.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
+        self.trashButton.addTarget(self, action: #selector(deleteButtonPressed), for: .touchUpInside)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,5 +42,8 @@ class RecordCell: UITableViewCell {
         self.delegate?.editButtonDidSelect(cell: self)
     }
 
+    @objc func deleteButtonPressed() {
+        self.delegate?.deleteButtonDidSelect(cell: self)
+    }
     
 }

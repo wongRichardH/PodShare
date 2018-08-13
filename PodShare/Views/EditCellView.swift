@@ -28,6 +28,7 @@ class EditCellView: UIView {
 
         self.renameButton.addTarget(self, action: #selector(renameButtonPressed), for: .touchUpInside)
         self.cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
+
     }
 
     func setup() {
@@ -35,7 +36,6 @@ class EditCellView: UIView {
         self.textField.autocapitalizationType = .sentences
         self.textField.autocorrectionType = .default
         self.textField.spellCheckingType = .no
-
         self.layer.cornerRadius = 4.0
 
     }

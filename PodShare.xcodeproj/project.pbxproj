@@ -24,6 +24,8 @@
 		79241B72211BA9EE00385912 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B71211BA9EE00385912 /* Record.swift */; };
 		79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE0576211C31CB001A8D3A /* EditCellView.swift */; };
 		79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE0578211C31E9001A8D3A /* EditCellView.xib */; };
+		79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE057A211E53B7001A8D3A /* DeleteCellView.swift */; };
+		79CE057D211E53DC001A8D3A /* DeleteCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE057C211E53DC001A8D3A /* DeleteCellView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		79241B71211BA9EE00385912 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		79CE0576211C31CB001A8D3A /* EditCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellView.swift; sourceTree = "<group>"; };
 		79CE0578211C31E9001A8D3A /* EditCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCellView.xib; sourceTree = "<group>"; };
+		79CE057A211E53B7001A8D3A /* DeleteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCellView.swift; sourceTree = "<group>"; };
+		79CE057C211E53DC001A8D3A /* DeleteCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteCellView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,8 @@
 				79241B6A211AE49800385912 /* RecordCell.xib */,
 				79CE0576211C31CB001A8D3A /* EditCellView.swift */,
 				79CE0578211C31E9001A8D3A /* EditCellView.xib */,
+				79CE057A211E53B7001A8D3A /* DeleteCellView.swift */,
+				79CE057C211E53DC001A8D3A /* DeleteCellView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 			files = (
 				79241B6C211AE49800385912 /* RecordCell.xib in Resources */,
 				79241B3C211ABB2F00385912 /* LaunchScreen.storyboard in Resources */,
+				79CE057D211E53DC001A8D3A /* DeleteCellView.xib in Resources */,
 				79241B62211ABB3E00385912 /* RecordVC.xib in Resources */,
 				79241B39211ABB2F00385912 /* Assets.xcassets in Resources */,
 				79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */,
@@ -323,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79241B61211ABB3E00385912 /* RecordVC.swift in Sources */,
+				79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */,
 				79241B34211ABB2E00385912 /* ViewController.swift in Sources */,
 				79241B66211ABD7C00385912 /* FriendsFeedVC.swift in Sources */,
 				79241B32211ABB2E00385912 /* AppDelegate.swift in Sources */,
