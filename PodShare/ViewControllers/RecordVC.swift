@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Firebase
 
 class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate {
 
@@ -18,6 +19,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordings: [Record] = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setup()
+        self.askMicPermission()
+        self.refreshRecordings()
+    }
 
     @IBAction func record(_ sender: Any) {
         if audioRecorder == nil {
@@ -33,7 +41,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 audioRecorder.record()
                 self.recordLabel.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
             } catch {
-                self.displayAlert(title: "Error", message: "Recording failed")
+                let alert = AlertPresenter(baseVC: self)
+                alert.showAlert(alertTitle: "Error Recording", alertMessage: "Reason: \(error.localizedDescription)")
             }
             //STOP Recording
         } else {
@@ -47,14 +56,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             }
             self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setup()
-        self.askMicPermission()
-        self.refreshRecordings()
-
     }
 
     // MARK: UITableView Datasource
@@ -87,7 +88,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     }
 
     // MARK: RecordCellDelegate
-
     func editButtonDidSelect(cell: RecordCell) {
         //View setup
         let nib = UINib(nibName: "EditCellView", bundle: nil)
@@ -182,7 +182,35 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
 
+    // MARK: shareButtonDidSelectDelegate
+    func shareButtonDidSelect(cell: RecordCell) {
+        cell.delegate = self
+
+        guard let currentUser = Auth.auth().currentUser else { return }
+        guard let filePath = cell.fileURL?.path else {return}
+
+        let alert = AlertPresenter(baseVC: self)
+
+        let fileName = cell.titleLabel.text ?? ""
+        let localFile = URL(fileURLWithPath: filePath)
+
+        let childRef = Database.database().reference().child("Users").childByAutoId()
+        childRef.setValue(["creator": currentUser.uid])
+
+        let ref = Storage.storage().reference().child("User_Audio_Files").child("\(childRef.key)").child("\(fileName).m4a")
+
+        let _ = ref.putFile(from: localFile, metadata: nil) { (metadata, error) in
+
+            if let error = error {
+                alert.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
+            }
+            if let metadata = metadata {
+                print("Metadata found?")
+                alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
+            }
+        }
     }
 
     func refreshRecordings() {
@@ -215,22 +243,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         }
     }
 
-    func askMicPermission() {
-        recordingSession = AVAudioSession.sharedInstance()
-        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
-            if !hasPermission {
-                print("ERROR - User does not grant permission")
-                return
-            }
-        }
-    }
-
-    func getDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = paths[0]
-        return documentDirectory
-    }
-
     func setup() {
         self.tabBarItem.title = "Record"
         self.tableView.dataSource = self
@@ -238,12 +250,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let recordNib = UINib(nibName: "RecordCell", bundle: nil)
         self.tableView.register(recordNib, forCellReuseIdentifier: "nibIdentifier")
-    }
-
-    func displayAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 
     func printDirectoryNames() {
@@ -260,5 +266,21 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 }
             }
         }
+    }
+
+    func askMicPermission() {
+        recordingSession = AVAudioSession.sharedInstance()
+        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
+            if !hasPermission {
+                print("ERROR - User does not grant permission")
+                return
+            }
+        }
+    }
+
+    func getDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        return documentDirectory
     }
 }
