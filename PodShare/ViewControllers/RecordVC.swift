@@ -189,25 +189,21 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         cell.delegate = self
 
         guard let currentUser = Auth.auth().currentUser else { return }
-        guard let filePath = cell.fileURL?.path else {return}
+        guard let filePath = cell.fileURL?.path else { return }
 
         let alert = AlertPresenter(baseVC: self)
-
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
-        let childRef = Database.database().reference().child("Users").childByAutoId()
-        childRef.setValue(["creator": currentUser.uid])
+        let userRef = Database.database().reference().child("Users").child("\(currentUser.uid)")
+        userRef.setValue(["creator": currentUser.uid])
+        let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(currentUser.uid)").child("\(fileName).m4a")
 
-        let ref = Storage.storage().reference().child("User_Audio_Files").child("\(childRef.key)").child("\(fileName).m4a")
-
-        let _ = ref.putFile(from: localFile, metadata: nil) { (metadata, error) in
-
+        let _ = fileRef.putFile(from: localFile, metadata: nil) { (metadata, error) in
             if let error = error {
                 alert.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
             }
-            if let metadata = metadata {
-                print("Metadata found?")
+            if let _ = metadata {
                 alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
             }
         }
