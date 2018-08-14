@@ -21,16 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        let recordVC = RecordVC()
 //        let friendsVC = FriendsFeedVC()
-//
 //        let tabBar = UITabBarController()
 //        tabBar.addChildViewController(recordVC)
 //        tabBar.addChildViewController(friendsVC)
-//
 //        self.window?.rootViewController = tabBar
 
         let loginRootVC = LoginVC()
         self.window?.rootViewController = loginRootVC
-        
+
         self.window?.makeKeyAndVisible()
 
         FirebaseApp.configure()
