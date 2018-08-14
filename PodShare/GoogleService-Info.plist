@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1021689782723-1o7cgi94f1grt0i6l6kj8k3562pnt3en.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1021689782723-1o7cgi94f1grt0i6l6kj8k3562pnt3en</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCWna3xuPUHLBHg5SL-hiXQknJ4qwzNbws</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1021689782723</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.wongRichardH.PodShare</string>
+	<key>PROJECT_ID</key>
+	<string>podcastshare-d71a3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>podcastshare-d71a3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1021689782723:ios:d5c83bb327463c39</string>
+	<key>DATABASE_URL</key>
+	<string>https://podcastshare-d71a3.firebaseio.com</string>
+</dict>
+</plist>
