@@ -27,6 +27,7 @@ class DeleteCellView: UIView {
     }
 
     func setup() {
+        self.layer.cornerRadius = 4.0
         self.backgroundColor = UIColor(displayP3Red: 0.973701, green: 0.925641, blue: 0.908454, alpha: 0.99)
         self.dismissViewButton.addTarget(self, action: #selector(dismissViewButtonPressed), for: .touchUpInside)
         self.deleteButton.addTarget(self, action: #selector(deleteButtonPressed), for: .touchUpInside)

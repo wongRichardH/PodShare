@@ -62,8 +62,9 @@ class LoginVC: UIViewController {
         let recordVC = RecordVC()
         let friendsVC = FriendsFeedVC()
         let tabBar = UITabBarController()
-        tabBar.addChildViewController(recordVC)
         tabBar.addChildViewController(friendsVC)
+        tabBar.addChildViewController(recordVC)
+//        tabBar.addChildViewController(friendsVC)
 
         return tabBar
     }

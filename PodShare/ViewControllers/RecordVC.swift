@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate {
+class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate, UploadAudioViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var recordLabel: UIButton!
@@ -50,11 +50,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             audioRecorder = nil
             self.refreshRecordings()
             UserDefaults.standard.set(self.recordings.count, forKey: "myNumber")
+            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
         }
     }
 
@@ -135,7 +135,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: deleteButtonDidSelectDelegate
     func deleteButtonDidSelect(cell: RecordCell) {
-        //present view
+
         let nib = UINib(nibName: "DeleteCellView", bundle: nil)
         let deleteView = nib.instantiate(withOwner: nil, options: nil).first as! DeleteCellView
         deleteView.delegate = self
@@ -188,26 +188,54 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     func shareButtonDidSelect(cell: RecordCell) {
         cell.delegate = self
 
+        let nib = UINib(nibName: "UploadAudioView", bundle: nil)
+        let uploadView = nib.instantiate(withOwner: nil, options: nil).first as! UploadAudioView
+        uploadView.delegate = self
+
+        if let cellTitleName = cell.titleLabel.text {
+            uploadView.warningMessageLabel.text = "Upload \(cellTitleName)?"
+        }
+
+        self.view.addSubview(uploadView)
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: uploadView.frame.width, height: uploadView.frame.height)
+        uploadView.frame = CGRect(origin: viewCenter, size: viewSize)
+        uploadView.center = self.view.center
+
+        uploadView.cell = cell
+    }
+
+    // MARK: uploadAudioViewDidSelectedDelegate
+    func uploadAudioDidSelected(cell: RecordCell) {
+        let view = UploadAudioView()
+        view.delegate = self
+
         guard let currentUser = Auth.auth().currentUser else { return }
         guard let filePath = cell.fileURL?.path else { return }
 
+        let userEmail = currentUser.email ?? ""
+        let encodedEmail = userEmail.encode(email: userEmail)
         let alert = AlertPresenter(baseVC: self)
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
-        let userRef = Database.database().reference().child("Users").child("\(currentUser.uid)")
-        userRef.setValue(["creator": currentUser.uid])
-        let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(currentUser.uid)").child("\(fileName).m4a")
+        let userRef = Database.database().reference().child("Users").child("\(encodedEmail)")
+        userRef.setValue(["creatorID": currentUser.uid])
+
+        let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(encodedEmail)").child("\(fileName).m4a")
 
         let _ = fileRef.putFile(from: localFile, metadata: nil) { (metadata, error) in
             if let error = error {
                 alert.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
             }
             if let _ = metadata {
+                //                print(metadata?.timeCreated)
                 alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
             }
         }
+        
     }
+
 
     func refreshRecordings() {
         var existingRecords: [Record] = []
