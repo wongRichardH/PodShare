@@ -101,10 +101,4 @@ class FriendsFeedVC: UIViewController {
         }
     }
 
-    //Architecture
-//    Build FeedCells that contain the CREATOR, RECORDNAME, RECORDDATE
-//    Clicking the cell plays using its url
-
-
-
 }

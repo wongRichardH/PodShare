@@ -89,22 +89,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: RecordCellDelegate
     func editButtonDidSelect(cell: RecordCell) {
-        //View setup
         let nib = UINib(nibName: "EditCellView", bundle: nil)
         let editView = nib.instantiate(withOwner: nil, options: nil).first as! EditCellView
-
         editView.delegate = self
+        self.addViewAndSetFrame(with: editView)
 
-        self.view.addSubview(editView)
-        let viewCenter = self.view.center
-        let viewSize = CGSize(width: editView.frame.width, height: editView.frame.height)
-        editView.frame = CGRect(origin: viewCenter, size: viewSize)
-        editView.center = self.view.center
-
-        //Pass additional properties
         let editCellIndexPath = self.tableView.indexPath(for: cell)
         editView.cellIndexPath = editCellIndexPath
-
         editView.textField.text = cell.titleLabel.text
 
     }
@@ -143,15 +134,9 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         if let cellTitleName = cell.titleLabel.text {
             deleteView.warningLabel.text = "Delete \(cellTitleName)?"
         }
-
-        self.view.addSubview(deleteView)
-        let viewCenter = self.view.center
-        let viewSize = CGSize(width: deleteView.frame.width, height: deleteView.frame.height)
-        deleteView.frame = CGRect(origin: viewCenter, size: viewSize)
-        deleteView.center = self.view.center
+        self.addViewAndSetFrame(with: deleteView)
 
         deleteView.cellName = cell.titleLabel.text
-
     }
 
     // MARK: DeleteCellViewDelegate
@@ -190,18 +175,14 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let nib = UINib(nibName: "UploadAudioView", bundle: nil)
         let uploadView = nib.instantiate(withOwner: nil, options: nil).first as! UploadAudioView
+
         uploadView.delegate = self
 
         if let cellTitleName = cell.titleLabel.text {
             uploadView.warningMessageLabel.text = "Upload \(cellTitleName)?"
         }
 
-        self.view.addSubview(uploadView)
-        let viewCenter = self.view.center
-        let viewSize = CGSize(width: uploadView.frame.width, height: uploadView.frame.height)
-        uploadView.frame = CGRect(origin: viewCenter, size: viewSize)
-        uploadView.center = self.view.center
-
+        self.addViewAndSetFrame(with: uploadView)
         uploadView.cell = cell
     }
 
@@ -229,13 +210,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 alert.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
             }
             if let _ = metadata {
-                //                print(metadata?.timeCreated)
                 alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
             }
         }
         
     }
-
 
     func refreshRecordings() {
         var existingRecords: [Record] = []
@@ -306,5 +285,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
         return documentDirectory
+    }
+
+    func addViewAndSetFrame(with view: UIView) {
+        self.view.addSubview(view)
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: view.frame.width, height: view.frame.height)
+        view.frame = CGRect(origin: viewCenter, size: viewSize)
+        view.center = self.view.center
     }
 }
