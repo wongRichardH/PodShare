@@ -10,10 +10,11 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class FriendsFeedVC: UIViewController {
+class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
 
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
 
     var audioPlayer: AVAudioPlayer!
 
@@ -28,11 +29,17 @@ class FriendsFeedVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchRecordings()
+        self.setup()
+//        self.fetchRecordings()
     }
 
     func setup() {
         self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
+        self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 75.0
+        self.tableView.separatorStyle = .none
     }
 
     @objc func fetchRecordings() {
@@ -65,8 +72,26 @@ class FriendsFeedVC: UIViewController {
 
     @objc func fetchRecordings2() {
         let dataRef = Database.database().reference()
+    }
+
+
+    //MARK: AddFriendDelegate
+    @objc func addFriendButtonPressed() {
+        let nib = UINib(nibName: "AddFriendView", bundle: nil)
+        let view = nib.instantiate(withOwner: nil, options: nil).first as! AddFriendView
+        view.delegate = self
+
+        self.addViewAndSetFrame(with: view)
 
     }
+
+//    func confirmFriendDidSelected(email: String) {
+//        let view = AddFriendView()
+//        view.delegate = self
+//
+//        let encodedEmail = email.encode(email: email)
+//        
+//    }
 
     func downloadFileFromURL(url:NSURL) {
         var task: URLSessionDownloadTask
@@ -75,9 +100,7 @@ class FriendsFeedVC: UIViewController {
             print("hello")
             self.play(with: url!)
         })
-
         task.resume()
-
     }
 
     func play(with url: URL) {
@@ -87,7 +110,8 @@ class FriendsFeedVC: UIViewController {
             self.audioPlayer.play()
         } catch {
             let alert = AlertPresenter(baseVC: self)
-            alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)        }
+            alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+        }
     }
 
     func play(with data: Data) {
@@ -101,4 +125,11 @@ class FriendsFeedVC: UIViewController {
         }
     }
 
+    func addViewAndSetFrame(with view: UIView) {
+        self.view.addSubview(view)
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: view.frame.width, height: view.frame.height)
+        view.frame = CGRect(origin: viewCenter, size: viewSize)
+        view.center = self.view.center
+    }
 }

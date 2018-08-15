@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FriendsFeedVC" customModule="PodShare" customModuleProvider="target">
             <connections>
+                <outlet property="addButton" destination="iqm-sA-fMG" id="9hq-VY-peI"/>
                 <outlet property="refreshButton" destination="bvC-kP-FsG" id="9NG-6q-f1E"/>
                 <outlet property="tableView" destination="N6Q-aW-Lk3" id="zSV-3p-kWm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -34,14 +35,25 @@
                     </constraints>
                     <state key="normal" title="Button" image="refresh"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-sA-fMG">
+                    <rect key="frame" x="304" y="576" width="55" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="ZZn-vY-oJj"/>
+                        <constraint firstAttribute="height" constant="55" id="cvJ-fb-Ehp"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="add"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="bvC-kP-FsG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="304" id="Fp1-NF-j2J"/>
+                <constraint firstItem="iqm-sA-fMG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="304" id="JEt-eo-rcY"/>
+                <constraint firstItem="iqm-sA-fMG" firstAttribute="leading" secondItem="N6Q-aW-Lk3" secondAttribute="trailing" constant="-71" id="OPB-Pn-hKr"/>
                 <constraint firstItem="N6Q-aW-Lk3" firstAttribute="top" secondItem="bvC-kP-FsG" secondAttribute="bottom" constant="7" id="QKf-4i-dbr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="N6Q-aW-Lk3" secondAttribute="bottom" id="UiN-At-2fe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="N6Q-aW-Lk3" secondAttribute="trailing" id="WT3-qn-WJ6"/>
                 <constraint firstItem="bvC-kP-FsG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hnY-X2-lOO"/>
+                <constraint firstItem="iqm-sA-fMG" firstAttribute="top" secondItem="N6Q-aW-Lk3" secondAttribute="bottom" constant="-91" id="sws-rG-lLk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bvC-kP-FsG" secondAttribute="trailing" constant="16" id="ubl-pv-9fq"/>
                 <constraint firstItem="N6Q-aW-Lk3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yuA-1l-ryU"/>
             </constraints>
@@ -50,6 +62,7 @@
         </view>
     </objects>
     <resources>
+        <image name="add" width="64" height="64"/>
         <image name="refresh" width="50" height="50"/>
     </resources>
 </document>

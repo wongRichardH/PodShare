@@ -27,6 +27,9 @@ class LoginVC: UIViewController {
         self.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         self.registerButton.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
 
+        self.emailTextField.text = "rwong@gmail.com"
+        self.passwordTextField.text = "123123"
+
     }
     @objc func loginButtonPressed() {
         let email = self.emailTextField.text ?? ""

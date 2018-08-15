@@ -31,14 +31,14 @@
                         <constraint firstAttribute="width" constant="125" id="LXW-8D-Hih"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warningMessage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJE-2H-QH3">
-                    <rect key="frame" x="124" y="143" width="130" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warningMessage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJE-2H-QH3">
+                    <rect key="frame" x="100" y="134" width="178" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEB-tm-gmo">
-                    <rect key="frame" x="122" y="162" width="125" height="47"/>
+                    <rect key="frame" x="127" y="163" width="125" height="47"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="4tF-4C-YRc"/>
                         <constraint firstAttribute="width" constant="125" id="RBS-6M-hvb"/>
@@ -50,18 +50,18 @@
             <constraints>
                 <constraint firstItem="Vd7-Tj-xfg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="193-2a-ZLO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Vd7-Tj-xfg" secondAttribute="trailing" constant="127" id="3RK-vO-qPA"/>
-                <constraint firstItem="eJE-2H-QH3" firstAttribute="top" secondItem="Vd7-Tj-xfg" secondAttribute="bottom" constant="17" id="6Xt-DN-yxG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bEB-tm-gmo" secondAttribute="bottom" constant="28" id="HlM-ht-43S"/>
-                <constraint firstItem="bEB-tm-gmo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="122" id="KlC-8w-h4w"/>
+                <constraint firstItem="eJE-2H-QH3" firstAttribute="top" secondItem="Vd7-Tj-xfg" secondAttribute="bottom" constant="8" id="6Xt-DN-yxG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bEB-tm-gmo" secondAttribute="bottom" constant="27" id="HlM-ht-43S"/>
+                <constraint firstItem="bEB-tm-gmo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="KlC-8w-h4w"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="gWS-F3-m18" secondAttribute="bottom" constant="187" id="LEG-Cf-vWk"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eJE-2H-QH3" secondAttribute="trailing" constant="125" id="P1a-ln-Fns"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eJE-2H-QH3" secondAttribute="trailing" constant="101" id="P1a-ln-Fns"/>
                 <constraint firstItem="gWS-F3-m18" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="Rwg-uT-5CA"/>
                 <constraint firstItem="Vd7-Tj-xfg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="49" id="Tam-7F-nRN"/>
-                <constraint firstItem="eJE-2H-QH3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="124" id="av0-EO-fGK"/>
+                <constraint firstItem="eJE-2H-QH3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="100" id="av0-EO-fGK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gWS-F3-m18" secondAttribute="trailing" constant="16" id="cgu-Ho-j9U"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bEB-tm-gmo" secondAttribute="trailing" constant="132" id="oSM-gh-tag"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bEB-tm-gmo" secondAttribute="trailing" constant="127" id="oSM-gh-tag"/>
                 <constraint firstItem="gWS-F3-m18" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="rgc-LC-DOu"/>
-                <constraint firstItem="bEB-tm-gmo" firstAttribute="top" secondItem="eJE-2H-QH3" secondAttribute="bottom" constant="-2" id="vBj-4w-23A"/>
+                <constraint firstItem="bEB-tm-gmo" firstAttribute="top" secondItem="eJE-2H-QH3" secondAttribute="bottom" constant="8" id="vBj-4w-23A"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -70,6 +70,7 @@
                 <outlet property="dismissButton" destination="gWS-F3-m18" id="XQR-ig-AAd"/>
                 <outlet property="warningMessageLabel" destination="eJE-2H-QH3" id="55m-8b-qYO"/>
             </connections>
+            <point key="canvasLocation" x="26.5" y="53.5"/>
         </view>
     </objects>
     <resources>
