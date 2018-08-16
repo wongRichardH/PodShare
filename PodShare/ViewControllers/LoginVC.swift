@@ -49,12 +49,25 @@ class LoginVC: UIViewController {
     @objc func registerButtonPressed() {
         let email = self.emailTextField.text ?? ""
         let password = self.passwordTextField.text ?? ""
+
+        if email.isEmpty || password.isEmpty {
+            let presenter = AlertPresenter(baseVC: self)
+            presenter.showAlert(alertTitle: "Empty Fields", alertMessage: "Reason: Please enter valid username or password")
+            return
+        }
+
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if let error = error {
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "Error Creating User", alertMessage: "Reason: \(error.localizedDescription)")
             }
-            if let _ = user {
+            if let user = user {
+                let encodedEmail = self.encode(email: email)
+                let dataRef = Database.database().reference().child("Users").child(encodedEmail)
+                dataRef.setValue(["creatorID": user.uid])
+
+                dataRef.child("friends").setValue(["": ""])
+
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "User Created!", alertMessage: "Login to continue")
             }

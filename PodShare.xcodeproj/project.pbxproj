@@ -29,6 +29,7 @@
 		79B3348E2124A866003797A8 /* UploadAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B3348D2124A866003797A8 /* UploadAudioView.xib */; };
 		79B334902124D767003797A8 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348F2124D767003797A8 /* AddFriendView.swift */; };
 		79B334922124D784003797A8 /* AddFriendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B334912124D784003797A8 /* AddFriendView.xib */; };
+		79B3349421251758003797A8 /* UIViewController+PodShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3349321251758003797A8 /* UIViewController+PodShare.swift */; };
 		79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE0576211C31CB001A8D3A /* EditCellView.swift */; };
 		79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE0578211C31E9001A8D3A /* EditCellView.xib */; };
 		79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE057A211E53B7001A8D3A /* DeleteCellView.swift */; };
@@ -82,6 +83,7 @@
 		79B3348D2124A866003797A8 /* UploadAudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadAudioView.xib; sourceTree = "<group>"; };
 		79B3348F2124D767003797A8 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
 		79B334912124D784003797A8 /* AddFriendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendView.xib; sourceTree = "<group>"; };
+		79B3349321251758003797A8 /* UIViewController+PodShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PodShare.swift"; sourceTree = "<group>"; };
 		79CE0576211C31CB001A8D3A /* EditCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellView.swift; sourceTree = "<group>"; };
 		79CE0578211C31E9001A8D3A /* EditCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCellView.xib; sourceTree = "<group>"; };
 		79CE057A211E53B7001A8D3A /* DeleteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCellView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				79241B6E211B937600385912 /* NSDate+PodShare.swift */,
 				79B3348921241E3C003797A8 /* String+PodShare.swift */,
+				79B3349321251758003797A8 /* UIViewController+PodShare.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				79241B61211ABB3E00385912 /* RecordVC.swift in Sources */,
 				79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */,
 				79241B66211ABD7C00385912 /* FriendsFeedVC.swift in Sources */,
+				79B3349421251758003797A8 /* UIViewController+PodShare.swift in Sources */,
 				79B334902124D767003797A8 /* AddFriendView.swift in Sources */,
 				79241B32211ABB2E00385912 /* AppDelegate.swift in Sources */,
 				79241B72211BA9EE00385912 /* Record.swift in Sources */,

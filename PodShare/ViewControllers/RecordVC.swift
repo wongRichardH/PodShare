@@ -102,8 +102,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: EditCellViewDelegate
     func renameButtonDidSelect(text: String, indexPath: IndexPath) {
-        let view = EditCellView()
-        view.delegate = self
 
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordCell
         let currentName = cell.titleLabel.text ?? ""
@@ -141,8 +139,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: DeleteCellViewDelegate
     func deleteAudioDidSelected(cell: DeleteCellView, cellName: String) {
-        let view = DeleteCellView()
-        view.delegate = self
+
         let cellName = cell.cellName ?? ""
 
         if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
@@ -172,10 +169,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     // MARK: shareButtonDidSelectDelegate
     func shareButtonDidSelect(cell: RecordCell) {
         cell.delegate = self
-
         let nib = UINib(nibName: "UploadAudioView", bundle: nil)
         let uploadView = nib.instantiate(withOwner: nil, options: nil).first as! UploadAudioView
-
         uploadView.delegate = self
 
         if let cellTitleName = cell.titleLabel.text {
@@ -188,20 +183,18 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: uploadAudioViewDidSelectedDelegate
     func uploadAudioDidSelected(cell: RecordCell) {
-        let view = UploadAudioView()
-        view.delegate = self
-
+        
         guard let currentUser = Auth.auth().currentUser else { return }
         guard let filePath = cell.fileURL?.path else { return }
 
         let userEmail = currentUser.email ?? ""
-        let encodedEmail = userEmail.encode(email: userEmail)
+        let encodedEmail = self.encode(email: userEmail)
         let alert = AlertPresenter(baseVC: self)
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
         let userRef = Database.database().reference().child("Users").child("\(encodedEmail)")
-        userRef.setValue(["creatorID": currentUser.uid])
+//        userRef.setValue(["creatorID": currentUser.uid])
 
         let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(encodedEmail)").child("\(fileName).m4a")
 

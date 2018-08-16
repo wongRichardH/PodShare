@@ -9,11 +9,11 @@
 import Foundation
 
 extension String {
-    func encode(email: String) -> String{
-        return email.components(separatedBy: ".").joined(separator: "•")
-    }
-
-    func decode(email: String) -> String{
-        return email.components(separatedBy: "•").joined(separator: ".")
-    }
+//    func encode(email: String) -> String{
+//        return email.components(separatedBy: ".").joined(separator: "•")
+//    }
+//
+//    func decode(email: String) -> String{
+//        return email.components(separatedBy: "•").joined(separator: ".")
+//    }
 }

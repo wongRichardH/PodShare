@@ -35,6 +35,7 @@ class AddFriendView: UIView {
     @objc func confirmButtonPressed() {
         let email = self.textField.text ?? ""
         self.delegate?.confirmFriendDidSelected(email: email)
+        self.isHidden = true
     }
 
 }
