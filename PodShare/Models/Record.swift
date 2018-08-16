@@ -19,4 +19,6 @@ class Record {
         self.timestamp = timestamp
         self.fileURL = fileURL
     }
+
+    
 }

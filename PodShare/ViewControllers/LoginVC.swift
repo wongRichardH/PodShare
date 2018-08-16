@@ -27,6 +27,9 @@ class LoginVC: UIViewController {
         self.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         self.registerButton.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
 
+        self.emailTextField.text = "rwong@gmail.com"
+        self.passwordTextField.text = "123123"
+
     }
     @objc func loginButtonPressed() {
         let email = self.emailTextField.text ?? ""
@@ -46,12 +49,28 @@ class LoginVC: UIViewController {
     @objc func registerButtonPressed() {
         let email = self.emailTextField.text ?? ""
         let password = self.passwordTextField.text ?? ""
+
+        if email.isEmpty || password.isEmpty {
+            let presenter = AlertPresenter(baseVC: self)
+            presenter.showAlert(alertTitle: "Empty Fields", alertMessage: "Reason: Please enter valid username or password")
+            return
+        }
+
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if let error = error {
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "Error Creating User", alertMessage: "Reason: \(error.localizedDescription)")
             }
-            if let _ = user {
+            if let user = user {
+                let encodedEmail = self.encode(email: email)
+                let dataRef = Database.database().reference().child("Users").child(encodedEmail)
+                dataRef.setValue(["creatorID": user.uid])
+
+
+                //sets for self. user who creates email creates placeholder friend for themselves
+                let friendRef = Database.database().reference().child("Friends").child(encodedEmail)
+                friendRef.setValue(["placeholder": true])
+
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "User Created!", alertMessage: "Login to continue")
             }
@@ -62,8 +81,9 @@ class LoginVC: UIViewController {
         let recordVC = RecordVC()
         let friendsVC = FriendsFeedVC()
         let tabBar = UITabBarController()
-        tabBar.addChildViewController(recordVC)
         tabBar.addChildViewController(friendsVC)
+        tabBar.addChildViewController(recordVC)
+//        tabBar.addChildViewController(friendsVC)
 
         return tabBar
     }

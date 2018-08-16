@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UploadAudioView" customModule="PodShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="237"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWS-F3-m18">
+                    <rect key="frame" x="333" y="20" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="3xo-mS-dDx"/>
+                        <constraint firstAttribute="width" constant="30" id="k8b-Fs-K2f"/>
+                    </constraints>
+                    <state key="normal" image="x"/>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upload" translatesAutoresizingMaskIntoConstraints="NO" id="Vd7-Tj-xfg">
+                    <rect key="frame" x="127" y="49" width="125" height="77"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="77" id="FIs-nv-w3J"/>
+                        <constraint firstAttribute="width" constant="125" id="LXW-8D-Hih"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warningMessage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJE-2H-QH3">
+                    <rect key="frame" x="100" y="134" width="178" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEB-tm-gmo">
+                    <rect key="frame" x="127" y="163" width="125" height="47"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="47" id="4tF-4C-YRc"/>
+                        <constraint firstAttribute="width" constant="125" id="RBS-6M-hvb"/>
+                    </constraints>
+                    <state key="normal" title="Confirm"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Vd7-Tj-xfg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="193-2a-ZLO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Vd7-Tj-xfg" secondAttribute="trailing" constant="127" id="3RK-vO-qPA"/>
+                <constraint firstItem="eJE-2H-QH3" firstAttribute="top" secondItem="Vd7-Tj-xfg" secondAttribute="bottom" constant="8" id="6Xt-DN-yxG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bEB-tm-gmo" secondAttribute="bottom" constant="27" id="HlM-ht-43S"/>
+                <constraint firstItem="bEB-tm-gmo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="127" id="KlC-8w-h4w"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="gWS-F3-m18" secondAttribute="bottom" constant="187" id="LEG-Cf-vWk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eJE-2H-QH3" secondAttribute="trailing" constant="101" id="P1a-ln-Fns"/>
+                <constraint firstItem="gWS-F3-m18" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="Rwg-uT-5CA"/>
+                <constraint firstItem="Vd7-Tj-xfg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="49" id="Tam-7F-nRN"/>
+                <constraint firstItem="eJE-2H-QH3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="100" id="av0-EO-fGK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gWS-F3-m18" secondAttribute="trailing" constant="16" id="cgu-Ho-j9U"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bEB-tm-gmo" secondAttribute="trailing" constant="127" id="oSM-gh-tag"/>
+                <constraint firstItem="gWS-F3-m18" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="rgc-LC-DOu"/>
+                <constraint firstItem="bEB-tm-gmo" firstAttribute="top" secondItem="eJE-2H-QH3" secondAttribute="bottom" constant="8" id="vBj-4w-23A"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="confirmButton" destination="bEB-tm-gmo" id="Sce-dQ-def"/>
+                <outlet property="dismissButton" destination="gWS-F3-m18" id="XQR-ig-AAd"/>
+                <outlet property="warningMessageLabel" destination="eJE-2H-QH3" id="55m-8b-qYO"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="53.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="upload" width="50" height="50"/>
+        <image name="x" width="50" height="50"/>
+    </resources>
+</document>

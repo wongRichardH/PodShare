@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate {
+class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource, UITableViewDelegate, RecordCellDelegate, EditCellViewDelegate, DeleteCellViewDelegate, UploadAudioViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var recordLabel: UIButton!
@@ -50,11 +50,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             audioRecorder = nil
             self.refreshRecordings()
             UserDefaults.standard.set(self.recordings.count, forKey: "myNumber")
+            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
         }
     }
 
@@ -89,30 +89,19 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: RecordCellDelegate
     func editButtonDidSelect(cell: RecordCell) {
-        //View setup
         let nib = UINib(nibName: "EditCellView", bundle: nil)
         let editView = nib.instantiate(withOwner: nil, options: nil).first as! EditCellView
-
         editView.delegate = self
+        self.addViewAndSetFrame(with: editView)
 
-        self.view.addSubview(editView)
-        let viewCenter = self.view.center
-        let viewSize = CGSize(width: editView.frame.width, height: editView.frame.height)
-        editView.frame = CGRect(origin: viewCenter, size: viewSize)
-        editView.center = self.view.center
-
-        //Pass additional properties
         let editCellIndexPath = self.tableView.indexPath(for: cell)
         editView.cellIndexPath = editCellIndexPath
-
         editView.textField.text = cell.titleLabel.text
 
     }
 
     // MARK: EditCellViewDelegate
     func renameButtonDidSelect(text: String, indexPath: IndexPath) {
-        let view = EditCellView()
-        view.delegate = self
 
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordCell
         let currentName = cell.titleLabel.text ?? ""
@@ -135,7 +124,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: deleteButtonDidSelectDelegate
     func deleteButtonDidSelect(cell: RecordCell) {
-        //present view
+
         let nib = UINib(nibName: "DeleteCellView", bundle: nil)
         let deleteView = nib.instantiate(withOwner: nil, options: nil).first as! DeleteCellView
         deleteView.delegate = self
@@ -143,21 +132,14 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         if let cellTitleName = cell.titleLabel.text {
             deleteView.warningLabel.text = "Delete \(cellTitleName)?"
         }
-
-        self.view.addSubview(deleteView)
-        let viewCenter = self.view.center
-        let viewSize = CGSize(width: deleteView.frame.width, height: deleteView.frame.height)
-        deleteView.frame = CGRect(origin: viewCenter, size: viewSize)
-        deleteView.center = self.view.center
+        self.addViewAndSetFrame(with: deleteView)
 
         deleteView.cellName = cell.titleLabel.text
-
     }
 
     // MARK: DeleteCellViewDelegate
     func deleteAudioDidSelected(cell: DeleteCellView, cellName: String) {
-        let view = DeleteCellView()
-        view.delegate = self
+
         let cellName = cell.cellName ?? ""
 
         if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
@@ -187,17 +169,34 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
     // MARK: shareButtonDidSelectDelegate
     func shareButtonDidSelect(cell: RecordCell) {
         cell.delegate = self
+        let nib = UINib(nibName: "UploadAudioView", bundle: nil)
+        let uploadView = nib.instantiate(withOwner: nil, options: nil).first as! UploadAudioView
+        uploadView.delegate = self
 
+        if let cellTitleName = cell.titleLabel.text {
+            uploadView.warningMessageLabel.text = "Upload \(cellTitleName)?"
+        }
+
+        self.addViewAndSetFrame(with: uploadView)
+        uploadView.cell = cell
+    }
+
+    // MARK: uploadAudioViewDidSelectedDelegate
+    func uploadAudioDidSelected(cell: RecordCell) {
+        
         guard let currentUser = Auth.auth().currentUser else { return }
         guard let filePath = cell.fileURL?.path else { return }
 
+        let userEmail = currentUser.email ?? ""
+        let encodedEmail = self.encode(email: userEmail)
         let alert = AlertPresenter(baseVC: self)
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
-        let userRef = Database.database().reference().child("Users").child("\(currentUser.uid)")
-        userRef.setValue(["creator": currentUser.uid])
-        let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(currentUser.uid)").child("\(fileName).m4a")
+//        let userRef = Database.database().reference().child("Users").child("\(encodedEmail)")
+//        userRef.setValue(["creatorID": currentUser.uid])
+
+        let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(encodedEmail)").child("\(fileName).m4a")
 
         let _ = fileRef.putFile(from: localFile, metadata: nil) { (metadata, error) in
             if let error = error {
@@ -207,6 +206,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
             }
         }
+        
     }
 
     func refreshRecordings() {
@@ -278,5 +278,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
         return documentDirectory
+    }
+
+    func addViewAndSetFrame(with view: UIView) {
+        self.view.addSubview(view)
+        let viewCenter = self.view.center
+        let viewSize = CGSize(width: view.frame.width, height: view.frame.height)
+        view.frame = CGRect(origin: viewCenter, size: viewSize)
+        view.center = self.view.center
     }
 }

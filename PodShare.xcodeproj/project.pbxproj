@@ -15,13 +15,21 @@
 		79241B67211ABD7C00385912 /* FriendsFeedVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B65211ABD7C00385912 /* FriendsFeedVC.xib */; };
 		79241B6B211AE49800385912 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B69211AE49800385912 /* RecordCell.swift */; };
 		79241B6C211AE49800385912 /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79241B6A211AE49800385912 /* RecordCell.xib */; };
-		79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B6E211B937600385912 /* NSDate+Parse.swift */; };
+		79241B6F211B937600385912 /* NSDate+PodShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B6E211B937600385912 /* NSDate+PodShare.swift */; };
 		79241B72211BA9EE00385912 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79241B71211BA9EE00385912 /* Record.swift */; };
 		79B3347B21223748003797A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79B3347A21223748003797A8 /* GoogleService-Info.plist */; };
 		79B3347D2122427D003797A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B3347C2122427D003797A8 /* Main.storyboard */; };
 		79B33480212242FF003797A8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3347E212242FF003797A8 /* LoginVC.swift */; };
 		79B33481212242FF003797A8 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B3347F212242FF003797A8 /* LoginVC.xib */; };
 		79B3348421225205003797A8 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348321225205003797A8 /* AlertPresenter.swift */; };
+		79B334872123AC32003797A8 /* LeftPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B334852123AC32003797A8 /* LeftPostCell.swift */; };
+		79B334882123AC32003797A8 /* LeftPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B334862123AC32003797A8 /* LeftPostCell.xib */; };
+		79B3348A21241E3C003797A8 /* String+PodShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348921241E3C003797A8 /* String+PodShare.swift */; };
+		79B3348C2124A81F003797A8 /* UploadAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348B2124A81F003797A8 /* UploadAudioView.swift */; };
+		79B3348E2124A866003797A8 /* UploadAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B3348D2124A866003797A8 /* UploadAudioView.xib */; };
+		79B334902124D767003797A8 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348F2124D767003797A8 /* AddFriendView.swift */; };
+		79B334922124D784003797A8 /* AddFriendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B334912124D784003797A8 /* AddFriendView.xib */; };
+		79B3349421251758003797A8 /* UIViewController+PodShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3349321251758003797A8 /* UIViewController+PodShare.swift */; };
 		79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE0576211C31CB001A8D3A /* EditCellView.swift */; };
 		79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE0578211C31E9001A8D3A /* EditCellView.xib */; };
 		79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE057A211E53B7001A8D3A /* DeleteCellView.swift */; };
@@ -61,13 +69,21 @@
 		79241B65211ABD7C00385912 /* FriendsFeedVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsFeedVC.xib; sourceTree = "<group>"; };
 		79241B69211AE49800385912 /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		79241B6A211AE49800385912 /* RecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
-		79241B6E211B937600385912 /* NSDate+Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Parse.swift"; sourceTree = "<group>"; };
+		79241B6E211B937600385912 /* NSDate+PodShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+PodShare.swift"; sourceTree = "<group>"; };
 		79241B71211BA9EE00385912 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		79B3347A21223748003797A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		79B3347C2122427D003797A8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		79B3347E212242FF003797A8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		79B3347F212242FF003797A8 /* LoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		79B3348321225205003797A8 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		79B334852123AC32003797A8 /* LeftPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPostCell.swift; sourceTree = "<group>"; };
+		79B334862123AC32003797A8 /* LeftPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftPostCell.xib; sourceTree = "<group>"; };
+		79B3348921241E3C003797A8 /* String+PodShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PodShare.swift"; sourceTree = "<group>"; };
+		79B3348B2124A81F003797A8 /* UploadAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAudioView.swift; sourceTree = "<group>"; };
+		79B3348D2124A866003797A8 /* UploadAudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadAudioView.xib; sourceTree = "<group>"; };
+		79B3348F2124D767003797A8 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
+		79B334912124D784003797A8 /* AddFriendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendView.xib; sourceTree = "<group>"; };
+		79B3349321251758003797A8 /* UIViewController+PodShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PodShare.swift"; sourceTree = "<group>"; };
 		79CE0576211C31CB001A8D3A /* EditCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellView.swift; sourceTree = "<group>"; };
 		79CE0578211C31E9001A8D3A /* EditCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCellView.xib; sourceTree = "<group>"; };
 		79CE057A211E53B7001A8D3A /* DeleteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCellView.swift; sourceTree = "<group>"; };
@@ -160,6 +176,12 @@
 				79CE0578211C31E9001A8D3A /* EditCellView.xib */,
 				79CE057A211E53B7001A8D3A /* DeleteCellView.swift */,
 				79CE057C211E53DC001A8D3A /* DeleteCellView.xib */,
+				79B334852123AC32003797A8 /* LeftPostCell.swift */,
+				79B334862123AC32003797A8 /* LeftPostCell.xib */,
+				79B3348B2124A81F003797A8 /* UploadAudioView.swift */,
+				79B3348D2124A866003797A8 /* UploadAudioView.xib */,
+				79B3348F2124D767003797A8 /* AddFriendView.swift */,
+				79B334912124D784003797A8 /* AddFriendView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,7 +189,9 @@
 		79241B6D211B935F00385912 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				79241B6E211B937600385912 /* NSDate+Parse.swift */,
+				79241B6E211B937600385912 /* NSDate+PodShare.swift */,
+				79B3348921241E3C003797A8 /* String+PodShare.swift */,
+				79B3349321251758003797A8 /* UIViewController+PodShare.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,10 +337,13 @@
 			files = (
 				79241B6C211AE49800385912 /* RecordCell.xib in Resources */,
 				79B3347B21223748003797A8 /* GoogleService-Info.plist in Resources */,
+				79B334922124D784003797A8 /* AddFriendView.xib in Resources */,
 				79CE057D211E53DC001A8D3A /* DeleteCellView.xib in Resources */,
 				79B3347D2122427D003797A8 /* Main.storyboard in Resources */,
+				79B3348E2124A866003797A8 /* UploadAudioView.xib in Resources */,
 				79241B62211ABB3E00385912 /* RecordVC.xib in Resources */,
 				79241B39211ABB2F00385912 /* Assets.xcassets in Resources */,
+				79B334882123AC32003797A8 /* LeftPostCell.xib in Resources */,
 				79B33481212242FF003797A8 /* LoginVC.xib in Resources */,
 				79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */,
 				79241B67211ABD7C00385912 /* FriendsFeedVC.xib in Resources */,
@@ -389,15 +416,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B3348A21241E3C003797A8 /* String+PodShare.swift in Sources */,
 				79241B61211ABB3E00385912 /* RecordVC.swift in Sources */,
 				79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */,
 				79241B66211ABD7C00385912 /* FriendsFeedVC.swift in Sources */,
+				79B3349421251758003797A8 /* UIViewController+PodShare.swift in Sources */,
+				79B334902124D767003797A8 /* AddFriendView.swift in Sources */,
 				79241B32211ABB2E00385912 /* AppDelegate.swift in Sources */,
 				79241B72211BA9EE00385912 /* Record.swift in Sources */,
 				79B3348421225205003797A8 /* AlertPresenter.swift in Sources */,
 				79B33480212242FF003797A8 /* LoginVC.swift in Sources */,
-				79241B6F211B937600385912 /* NSDate+Parse.swift in Sources */,
+				79B334872123AC32003797A8 /* LeftPostCell.swift in Sources */,
+				79241B6F211B937600385912 /* NSDate+PodShare.swift in Sources */,
 				79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */,
+				79B3348C2124A81F003797A8 /* UploadAudioView.swift in Sources */,
 				79241B6B211AE49800385912 /* RecordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
