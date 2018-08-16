@@ -111,6 +111,9 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
                             var mutatedDict = dict
                             mutatedDict["\(encodedFriendEmail)"] = true
                             dataRef.child(currentUserEncodedEmail).setValue(mutatedDict)
+
+                            let alert = AlertPresenter(baseVC: self)
+                            alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
                         }
                     })
 

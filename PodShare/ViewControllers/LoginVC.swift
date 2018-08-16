@@ -71,8 +71,6 @@ class LoginVC: UIViewController {
                 let friendRef = Database.database().reference().child("Friends").child(encodedEmail)
                 friendRef.setValue(["placeholder": true])
 
-//                dataRef.child("friends").setValue(["placeholder": true])
-
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "User Created!", alertMessage: "Login to continue")
             }
