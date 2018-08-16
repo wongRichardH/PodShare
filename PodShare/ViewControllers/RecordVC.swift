@@ -193,7 +193,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
-        let userRef = Database.database().reference().child("Users").child("\(encodedEmail)")
+//        let userRef = Database.database().reference().child("Users").child("\(encodedEmail)")
 //        userRef.setValue(["creatorID": currentUser.uid])
 
         let fileRef = Storage.storage().reference().child("User_Audio_Files").child("\(encodedEmail)").child("\(fileName).m4a")

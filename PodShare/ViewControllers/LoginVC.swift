@@ -66,7 +66,12 @@ class LoginVC: UIViewController {
                 let dataRef = Database.database().reference().child("Users").child(encodedEmail)
                 dataRef.setValue(["creatorID": user.uid])
 
-                dataRef.child("friends").setValue(["": ""])
+
+                //sets for self. user who creates email creates placeholder friend for themselves
+                let friendRef = Database.database().reference().child("Friends").child(encodedEmail)
+                friendRef.setValue(["placeholder": true])
+
+//                dataRef.child("friends").setValue(["placeholder": true])
 
                 let presenter = AlertPresenter(baseVC: self)
                 presenter.showAlert(alertTitle: "User Created!", alertMessage: "Login to continue")

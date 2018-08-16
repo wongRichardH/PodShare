@@ -99,44 +99,24 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
 
         let dataRef = Database.database().reference().child("Users")
         dataRef.observe(.value) { (snapshot) in
-            if let dict = snapshot.value as? [String: [String: Any]] {
+            if let usersDict = snapshot.value as? [String: [String: Any]] {
 
                 //See if user's email is in database
-                if let _ = dict[encodedFriendEmail] {
+                if let _ = usersDict[encodedFriendEmail] {
                     let currentUserEncodedEmail = self.encode(email: currentUserEmail)
+                    let dataRef = Database.database().reference().child("Friends")
 
-                    //could get snapshot of child directory of the user and append the key and post back to database
+                    dataRef.child(currentUserEncodedEmail).observe(.value, with: { (snapshot) in
+                        if let dict = snapshot.value as? [String: Bool] {
+                            var mutatedDict = dict
+                            mutatedDict["\(encodedFriendEmail)"] = true
+                            dataRef.child(currentUserEncodedEmail).setValue(mutatedDict)
+                        }
+                    })
 
-                    //if user exists, then let's add that user's email to our own friends list in database.database.reference()
-
-//                    dataRef.child(currentUserEncodedEmail).child("friends").observe(.value, with: { (snapshot) in
-//                        if let dict = snapshot.value as? [String: [String: Any]] {
-//                            //snapshot is of a user's friends already
-//                            var mutatedDict = dict
-//                            mutatedDict["\(currentUserEncodedEmail)"] = ""
-//
-//                            //POST back to database???
-//
-//                        }
-//                    })
-//
-//                    dataRef.child(currentUserEncodedEmail).child("Friends").updateChildValues(["Friends": "\(encodedFriendEmail)"], withCompletionBlock: { (error, databaseReference) in
-//                        if let error = error {
-//                            let alert = AlertPresenter(baseVC: self)
-//                            alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
-//                            return
-//                        } else {
-//                            let alert = AlertPresenter(baseVC: self)
-//                            alert.showAlert(alertTitle: "Success", alertMessage: "Added to friends!")
-//                        }
-//
-//                    })
-
-//                    dataRef.child(currentUserEncodedEmail).child("Friends").
-//                    dataRef.child(currentUserEncodedEmail).child("Friends").setValue(encodedFriendEmail)
                 } else {
                     let alert = AlertPresenter(baseVC: self)
-                    alert.showAlert(alertTitle: "Error", alertMessage: "Can not find user/email in database")
+                    alert.showAlert(alertTitle: "Error", alertMessage: "Can not find email in database")
                 }
             }
         }
