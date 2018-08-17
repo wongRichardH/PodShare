@@ -10,13 +10,15 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
+class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate, AddFriendViewDelegate {
 
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
 
     var audioPlayer: AVAudioPlayer!
+    var friendsList: [String] = []
+    var feedRecordings: [FeedRecording] = []
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -30,48 +32,99 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
-//        self.fetchRecordings()
+        self.fetchFriendsList()
     }
 
     func setup() {
         self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
         self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 75.0
         self.tableView.separatorStyle = .none
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+
+        let nib = UINib(nibName: "LeftPostCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "LeftPostCellIdentifier")
+    }
+
+    // MARK: UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.feedRecordings.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "LeftPostCellIdentifier", for: indexPath) as! LeftPostCell
+        let eachFeedRecording = self.feedRecordings[indexPath.row]
+        cell.configure(with: eachFeedRecording)
+
+        return cell
+    }
+
+    // MARK: UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView.cellForRow(at: indexPath) as! LeftPostCell
+        let cellURL = cell.fileURL ?? ""
+
+        self.playFile(with: cellURL)
     }
 
     @objc func fetchRecordings() {
-        let storageRef = Storage.storage().reference().child("User_Audio_Files")
-        let starsRef = storageRef.child("oi9N830oqfhusL5u71Pzx89VuOE3/").child("Bumps.m4a")
+        let dataRef = Database.database().reference().child("FileMetaData")
 
-        // Fetch the download URL
-        starsRef.downloadURL { url, error in
-            if let error = error {
-                let alert = AlertPresenter(baseVC: self)
-                alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
-            }
+        for friendEmail in self.friendsList {
+            //observe from database now
 
-            if let url = url {
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, urlResponse, error) in
-                    if let error = error {
-                        let alert = AlertPresenter(baseVC: self)
-                        alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
-                        return
+            dataRef.child(friendEmail).observe(.value) { (snapshot) in
+                if let file = snapshot.value as? [String: Any] {
+                    for (_, val) in file {
+                        if let fileContents = val as? [String: String] {
+
+                            var feedCreatorName = ""
+                            var feedRecordName = ""
+                            var feedTimeCreated = ""
+                            var feedFileURL = ""
+
+                            if let creatorName = fileContents["creator"] {
+                                feedCreatorName = creatorName
+                            }
+                            if let fileName = fileContents["fileName"] {
+                                feedRecordName = fileName
+                            }
+                            if let timeCreated = fileContents["timeCreated"] {
+                                feedTimeCreated = timeCreated
+                            }
+                            if let fileURL = fileContents["fileURL"] {
+                                feedFileURL = fileURL
+                            }
+
+                            let eachFeedRecording = FeedRecording(creatorName: feedCreatorName, recordName: feedRecordName, timeCreated: feedTimeCreated, fileURL: feedFileURL)
+
+                            self.feedRecordings.append(eachFeedRecording)
+                        }
                     }
-                    guard let data = data else { return }
-                    self.play(with: data)
-                })
-
-                task.resume()
-
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }
 
-    @objc func fetchRecordings2() {
-        let dataRef = Database.database().reference()
+    func fetchFriendsList() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let currentUserEmail = currentUser.email ?? ""
+        let encodedCurrentUserEmail = self.encode(email: currentUserEmail)
+
+        let _ = Database.database().reference().child("Friends").child(encodedCurrentUserEmail).observe(.value) { (snapshot) in
+            if let friendsDict = snapshot.value as? [String:Bool] {
+
+                for (key, val) in friendsDict {
+                    if key != "placeholder" && val == true {
+                        self.friendsList.append(key)
+                    }
+                }
+            }
+        }
     }
 
 
@@ -104,17 +157,11 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
                 //See if user's email is in database
                 if let _ = usersDict[encodedFriendEmail] {
                     let currentUserEncodedEmail = self.encode(email: currentUserEmail)
-                    let dataRef = Database.database().reference().child("Friends")
+                    let dataRef = Database.database().reference().child("Friends").child(currentUserEncodedEmail)
 
-                    dataRef.child(currentUserEncodedEmail).observe(.value, with: { (snapshot) in
-                        if let dict = snapshot.value as? [String: Bool] {
-                            var mutatedDict = dict
-                            mutatedDict["\(encodedFriendEmail)"] = true
-                            dataRef.child(currentUserEncodedEmail).setValue(mutatedDict)
-
-                            let alert = AlertPresenter(baseVC: self)
-                            alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
-                        }
+                    dataRef.updateChildValues([encodedFriendEmail: true], withCompletionBlock: { (error, databaseReference) in
+                        let alert = AlertPresenter(baseVC: self)
+                        alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
                     })
 
                 } else {
@@ -123,16 +170,6 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
                 }
             }
         }
-    }
-
-    func downloadFileFromURL(url:NSURL) {
-        var task: URLSessionDownloadTask
-
-        task = URLSession.shared.downloadTask(with: url as URL, completionHandler: { (url, response, error) in
-            print("hello")
-            self.play(with: url!)
-        })
-        task.resume()
     }
 
     func play(with url: URL) {
@@ -150,11 +187,36 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
         do {
             self.audioPlayer = try AVAudioPlayer(data: data)
             self.audioPlayer.play()
-
         } catch {
             let alert = AlertPresenter(baseVC: self)
             alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
         }
+    }
+
+    func playFile(with url: String) {
+        var task: URLSessionDownloadTask
+        let fileURL = URL(string: url)
+
+        task = URLSession.shared.downloadTask(with: fileURL!, completionHandler: { (url, response, error) in
+            if let error = error {
+                let alert = AlertPresenter(baseVC: self)
+                alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+                return
+            }
+            if let url = url {
+                self.play(with: url)
+            }
+        })
+        task.resume()
+    }
+
+    func downloadFileFromURL(url: URL) {
+        var task: URLSessionDownloadTask
+
+        task = URLSession.shared.downloadTask(with: url, completionHandler: { (url, response, error) in
+            self.play(with: url!)
+        })
+        task.resume()
     }
 
     func addViewAndSetFrame(with view: UIView) {
