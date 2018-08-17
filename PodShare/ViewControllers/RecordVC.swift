@@ -68,7 +68,6 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         cell.delegate = self
         let eachRecord = self.recordings[indexPath.row]
         cell.configure(record: eachRecord)
-        cell.titleLabel.text = eachRecord.name
         return cell
     }
 
@@ -261,6 +260,10 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let recordNib = UINib(nibName: "RecordCell", bundle: nil)
         self.tableView.register(recordNib, forCellReuseIdentifier: "nibIdentifier")
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 75.0
+        self.tableView.separatorStyle = .none
     }
 
     func printDirectoryNames() {

@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
+class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDelegate {
 
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -33,16 +33,32 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
         super.viewDidLoad()
         self.setup()
         self.fetchFriendsList()
-        self.fetchRecordings()
+//        self.fetchRecordings()
     }
 
     func setup() {
-        self.refreshButton.addTarget(self, action: #selector(fetchRecordings2), for: .touchUpInside)
+        self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
         self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
 
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 75.0
         self.tableView.separatorStyle = .none
+        self.tableView.dataSource = self
+
+        let nib = UINib(nibName: "LeftPostCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "LeftPostCellIdentifier")
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.feedRecordings.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "LeftPostCellIdentifier", for: indexPath) as! LeftPostCell
+        let eachFeedRecording = self.feedRecordings[indexPath.row]
+        cell.configure(with: eachFeedRecording)
+
+        return cell
     }
 
     @objc func fetchRecordings2() {
@@ -75,48 +91,41 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
     }
 
     @objc func fetchRecordings() {
-        if self.friendsList.count == 0 {
-            let alert = AlertPresenter(baseVC: self)
-            alert.showAlert(alertTitle: "Error", alertMessage: "Your friends list is empty, can't reload this feed")
-            return
-        } else {
-            let dataRef = Database.database().reference().child("FileMetaData")
+        let dataRef = Database.database().reference().child("FileMetaData")
 
-            for friendEmail in self.friendsList {
-                //observe from database now
+        for friendEmail in self.friendsList {
+            //observe from database now
 
-                dataRef.child(friendEmail).observe(.value) { (snapshot) in
-                    if let file = snapshot.value as? [String: Any] {
-                        for (_, val) in file {
-                            if let fileContents = val as? [String: String] {
+            dataRef.child(friendEmail).observe(.value) { (snapshot) in
+                if let file = snapshot.value as? [String: Any] {
+                    for (_, val) in file {
+                        if let fileContents = val as? [String: String] {
 
-                                var feedCreatorName = ""
-                                var feedRecordName = ""
-                                var feedTimeCreated = ""
-                                var feedFileURL = ""
+                            var feedCreatorName = ""
+                            var feedRecordName = ""
+                            var feedTimeCreated = ""
+                            var feedFileURL = ""
 
-                                if let creatorName = fileContents["creator"] {
-                                    feedCreatorName = creatorName
-                                }
-                                if let fileName = fileContents["fileName"] {
-                                    feedRecordName = fileName
-                                }
-                                if let timeCreated = fileContents["timeCreated"] {
-                                    feedTimeCreated = timeCreated
-                                }
-                                if let fileURL = fileContents["fileURL"] {
-                                    feedFileURL = fileURL
-                                }
-
-                                let eachFeedRecording = FeedRecording(creatorName: feedCreatorName, recordName: feedRecordName, timeCreated: feedTimeCreated, fileURL: feedFileURL)
-
-                                self.feedRecordings.append(eachFeedRecording)
+                            if let creatorName = fileContents["creator"] {
+                                feedCreatorName = creatorName
+                            }
+                            if let fileName = fileContents["fileName"] {
+                                feedRecordName = fileName
+                            }
+                            if let timeCreated = fileContents["timeCreated"] {
+                                feedTimeCreated = timeCreated
+                            }
+                            if let fileURL = fileContents["fileURL"] {
+                                feedFileURL = fileURL
                             }
 
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
+                            let eachFeedRecording = FeedRecording(creatorName: feedCreatorName, recordName: feedRecordName, timeCreated: feedTimeCreated, fileURL: feedFileURL)
+
+                            self.feedRecordings.append(eachFeedRecording)
                         }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                     }
                 }
             }

@@ -40,6 +40,7 @@ class RecordCell: UITableViewCell {
         self.titleLabel.text = record.name
         self.dateRecordLabel.text = record.timestamp
         self.fileURL = record.fileURL
+        self.titleLabel.text = record.name
     }
 
     @objc func editButtonPressed() {
