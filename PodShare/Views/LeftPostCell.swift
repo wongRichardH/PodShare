@@ -17,6 +17,8 @@ class LeftPostCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        self.backgroundColor = UIColor(red:0.88, green:0.88, blue:0.88, alpha:0.99)
     }
 
     func configure(with feed: FeedRecording) {

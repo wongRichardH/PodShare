@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Firebase
 
-class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDelegate {
+class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegate, AddFriendViewDelegate {
 
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -33,22 +33,21 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDeleg
         super.viewDidLoad()
         self.setup()
         self.fetchFriendsList()
-//        self.fetchRecordings()
     }
 
     func setup() {
         self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
         self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 75.0
         self.tableView.separatorStyle = .none
         self.tableView.dataSource = self
+        self.tableView.delegate = self
 
         let nib = UINib(nibName: "LeftPostCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "LeftPostCellIdentifier")
     }
 
+    // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.feedRecordings.count
     }
@@ -61,33 +60,12 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDeleg
         return cell
     }
 
-    @objc func fetchRecordings2() {
-        let storageRef = Storage.storage().reference().child("User_Audio_Files")
-        let starsRef = storageRef.child("oi9N830oqfhusL5u71Pzx89VuOE3/").child("Bumps.m4a")
+    // MARK: UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView.cellForRow(at: indexPath) as! LeftPostCell
+        let cellURL = cell.fileURL ?? ""
 
-        // Fetch the download URL
-        starsRef.downloadURL { url, error in
-            if let error = error {
-                let alert = AlertPresenter(baseVC: self)
-                alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
-            }
-
-
-            if let url = url {
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, urlResponse, error) in
-                    if let error = error {
-                        let alert = AlertPresenter(baseVC: self)
-                        alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
-                        return
-                    }
-                    guard let data = data else { return }
-                    self.play(with: data)
-                })
-
-                task.resume()
-
-            }
-        }
+        self.playFile(with: cellURL)
     }
 
     @objc func fetchRecordings() {
@@ -194,16 +172,6 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDeleg
         }
     }
 
-    func downloadFileFromURL(url:NSURL) {
-        var task: URLSessionDownloadTask
-
-        task = URLSession.shared.downloadTask(with: url as URL, completionHandler: { (url, response, error) in
-            print("hello")
-            self.play(with: url!)
-        })
-        task.resume()
-    }
-
     func play(with url: URL) {
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -223,6 +191,32 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, AddFriendViewDeleg
             let alert = AlertPresenter(baseVC: self)
             alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
         }
+    }
+
+    func playFile(with url: String) {
+        var task: URLSessionDownloadTask
+        let fileURL = URL(string: url)
+
+        task = URLSession.shared.downloadTask(with: fileURL!, completionHandler: { (url, response, error) in
+            if let error = error {
+                let alert = AlertPresenter(baseVC: self)
+                alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+                return
+            }
+            if let url = url {
+                self.play(with: url)
+            }
+        })
+        task.resume()
+    }
+
+    func downloadFileFromURL(url: URL) {
+        var task: URLSessionDownloadTask
+
+        task = URLSession.shared.downloadTask(with: url, completionHandler: { (url, response, error) in
+            self.play(with: url!)
+        })
+        task.resume()
     }
 
     func addViewAndSetFrame(with view: UIView) {
