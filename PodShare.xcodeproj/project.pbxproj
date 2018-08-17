@@ -30,6 +30,7 @@
 		79B334902124D767003797A8 /* AddFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3348F2124D767003797A8 /* AddFriendView.swift */; };
 		79B334922124D784003797A8 /* AddFriendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B334912124D784003797A8 /* AddFriendView.xib */; };
 		79B3349421251758003797A8 /* UIViewController+PodShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3349321251758003797A8 /* UIViewController+PodShare.swift */; };
+		79B3349621263798003797A8 /* FeedRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3349521263798003797A8 /* FeedRecording.swift */; };
 		79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE0576211C31CB001A8D3A /* EditCellView.swift */; };
 		79CE0579211C31E9001A8D3A /* EditCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE0578211C31E9001A8D3A /* EditCellView.xib */; };
 		79CE057B211E53B7001A8D3A /* DeleteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE057A211E53B7001A8D3A /* DeleteCellView.swift */; };
@@ -84,6 +85,7 @@
 		79B3348F2124D767003797A8 /* AddFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendView.swift; sourceTree = "<group>"; };
 		79B334912124D784003797A8 /* AddFriendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendView.xib; sourceTree = "<group>"; };
 		79B3349321251758003797A8 /* UIViewController+PodShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PodShare.swift"; sourceTree = "<group>"; };
+		79B3349521263798003797A8 /* FeedRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecording.swift; sourceTree = "<group>"; };
 		79CE0576211C31CB001A8D3A /* EditCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellView.swift; sourceTree = "<group>"; };
 		79CE0578211C31E9001A8D3A /* EditCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCellView.xib; sourceTree = "<group>"; };
 		79CE057A211E53B7001A8D3A /* DeleteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCellView.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				79241B71211BA9EE00385912 /* Record.swift */,
+				79B3349521263798003797A8 /* FeedRecording.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				79CE0577211C31CB001A8D3A /* EditCellView.swift in Sources */,
 				79B3348C2124A81F003797A8 /* UploadAudioView.swift in Sources */,
 				79241B6B211AE49800385912 /* RecordCell.swift in Sources */,
+				79B3349621263798003797A8 /* FeedRecording.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,8 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
     @IBOutlet weak var addButton: UIButton!
 
     var audioPlayer: AVAudioPlayer!
+    var friendsList: [String] = []
+    var feedRecordings: [FeedRecording] = []
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -30,11 +32,12 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
-//        self.fetchRecordings()
+        self.fetchFriendsList()
+        self.fetchRecordings()
     }
 
     func setup() {
-        self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
+        self.refreshButton.addTarget(self, action: #selector(fetchRecordings2), for: .touchUpInside)
         self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
 
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -42,7 +45,7 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
         self.tableView.separatorStyle = .none
     }
 
-    @objc func fetchRecordings() {
+    @objc func fetchRecordings2() {
         let storageRef = Storage.storage().reference().child("User_Audio_Files")
         let starsRef = storageRef.child("oi9N830oqfhusL5u71Pzx89VuOE3/").child("Bumps.m4a")
 
@@ -52,6 +55,7 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
                 let alert = AlertPresenter(baseVC: self)
                 alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
             }
+
 
             if let url = url {
                 let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, urlResponse, error) in
@@ -70,8 +74,70 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
         }
     }
 
-    @objc func fetchRecordings2() {
-        let dataRef = Database.database().reference()
+    @objc func fetchRecordings() {
+        if self.friendsList.count == 0 {
+            let alert = AlertPresenter(baseVC: self)
+            alert.showAlert(alertTitle: "Error", alertMessage: "Your friends list is empty, can't reload this feed")
+            return
+        } else {
+            let dataRef = Database.database().reference().child("FileMetaData")
+
+            for friendEmail in self.friendsList {
+                //observe from database now
+
+                dataRef.child(friendEmail).observe(.value) { (snapshot) in
+                    if let file = snapshot.value as? [String: Any] {
+                        for (_, val) in file {
+                            if let fileContents = val as? [String: String] {
+
+                                var feedCreatorName = ""
+                                var feedRecordName = ""
+                                var feedTimeCreated = ""
+                                var feedFileURL = ""
+
+                                if let creatorName = fileContents["creator"] {
+                                    feedCreatorName = creatorName
+                                }
+                                if let fileName = fileContents["fileName"] {
+                                    feedRecordName = fileName
+                                }
+                                if let timeCreated = fileContents["timeCreated"] {
+                                    feedTimeCreated = timeCreated
+                                }
+                                if let fileURL = fileContents["fileURL"] {
+                                    feedFileURL = fileURL
+                                }
+
+                                let eachFeedRecording = FeedRecording(creatorName: feedCreatorName, recordName: feedRecordName, timeCreated: feedTimeCreated, fileURL: feedFileURL)
+
+                                self.feedRecordings.append(eachFeedRecording)
+                            }
+
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func fetchFriendsList() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let currentUserEmail = currentUser.email ?? ""
+        let encodedCurrentUserEmail = self.encode(email: currentUserEmail)
+
+        let _ = Database.database().reference().child("Friends").child(encodedCurrentUserEmail).observe(.value) { (snapshot) in
+            if let friendsDict = snapshot.value as? [String:Bool] {
+
+                for (key, val) in friendsDict {
+                    if key != "placeholder" && val == true {
+                        self.friendsList.append(key)
+                    }
+                }
+            }
+        }
     }
 
 
@@ -104,17 +170,11 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
                 //See if user's email is in database
                 if let _ = usersDict[encodedFriendEmail] {
                     let currentUserEncodedEmail = self.encode(email: currentUserEmail)
-                    let dataRef = Database.database().reference().child("Friends")
+                    let dataRef = Database.database().reference().child("Friends").child(currentUserEncodedEmail)
 
-                    dataRef.child(currentUserEncodedEmail).observe(.value, with: { (snapshot) in
-                        if let dict = snapshot.value as? [String: Bool] {
-                            var mutatedDict = dict
-                            mutatedDict["\(encodedFriendEmail)"] = true
-                            dataRef.child(currentUserEncodedEmail).setValue(mutatedDict)
-
-                            let alert = AlertPresenter(baseVC: self)
-                            alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
-                        }
+                    dataRef.updateChildValues([encodedFriendEmail: true], withCompletionBlock: { (error, databaseReference) in
+                        let alert = AlertPresenter(baseVC: self)
+                        alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
                     })
 
                 } else {
@@ -150,7 +210,6 @@ class FriendsFeedVC: UIViewController, AddFriendViewDelegate {
         do {
             self.audioPlayer = try AVAudioPlayer(data: data)
             self.audioPlayer.play()
-
         } catch {
             let alert = AlertPresenter(baseVC: self)
             alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
