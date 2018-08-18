@@ -39,7 +39,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
-                self.recordLabel.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+                self.recordLabel.setImage(#imageLiteral(resourceName: "icons8-stop-50"), for: .normal)
             } catch {
                 let alert = AlertPresenter(baseVC: self)
                 alert.showAlert(alertTitle: "Error Recording", alertMessage: "Reason: \(error.localizedDescription)")
@@ -50,7 +50,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             audioRecorder = nil
             self.refreshRecordings()
             UserDefaults.standard.set(self.recordings.count, forKey: "myNumber")
-            self.recordLabel.setImage(#imageLiteral(resourceName: "microphone"), for: .normal)
+            self.recordLabel.setImage(#imageLiteral(resourceName: "levels"), for: .normal)
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -257,13 +257,13 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
         self.tabBarItem.title = "Record"
         self.tableView.dataSource = self
         self.tableView.delegate = self
-
-        let recordNib = UINib(nibName: "RecordCell", bundle: nil)
-        self.tableView.register(recordNib, forCellReuseIdentifier: "nibIdentifier")
-
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 75.0
         self.tableView.separatorStyle = .none
+        self.tabBarItem.image = #imageLiteral(resourceName: "microphone (1)")
+
+        let recordNib = UINib(nibName: "RecordCell", bundle: nil)
+        self.tableView.register(recordNib, forCellReuseIdentifier: "nibIdentifier")
     }
 
     func printDirectoryNames() {

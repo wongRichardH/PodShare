@@ -13,12 +13,14 @@ class LeftPostCell: UITableViewCell {
     @IBOutlet weak var creatorNameLabel: UILabel!
     @IBOutlet weak var recordingTitleLabel: UILabel!
     @IBOutlet weak var recordingDateLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+
     var fileURL: String?
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.backgroundColor = UIColor(red:0.88, green:0.88, blue:0.88, alpha:0.99)
+        self.setup()
     }
 
     func configure(with feed: FeedRecording) {
@@ -28,5 +30,9 @@ class LeftPostCell: UITableViewCell {
         self.fileURL = feed.fileURL
     }
 
+    func setup() {
+        self.backgroundColor = UIColor(red:0.88, green:0.88, blue:0.88, alpha:0.99)
+        self.containerView.layer.cornerRadius = 4.0
+    }
     
 }

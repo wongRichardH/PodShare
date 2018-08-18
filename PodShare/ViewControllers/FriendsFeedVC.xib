@@ -24,38 +24,36 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N6Q-aW-Lk3">
-                    <rect key="frame" x="0.0" y="77" width="375" height="590"/>
+                    <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvC-kP-FsG">
-                    <rect key="frame" x="304" y="20" width="55" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-sA-fMG">
+                    <rect key="frame" x="294" y="596" width="51" height="51"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Gj2-j5-18w"/>
+                        <constraint firstAttribute="width" constant="51" id="ZZn-vY-oJj"/>
+                        <constraint firstAttribute="height" constant="51" id="cvJ-fb-Ehp"/>
+                    </constraints>
+                    <state key="normal" image="add"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvC-kP-FsG">
+                    <rect key="frame" x="294" y="533" width="55" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="Gj2-j5-18w"/>
                         <constraint firstAttribute="width" constant="55" id="yLI-w2-lXf"/>
                     </constraints>
-                    <state key="normal" title="Button" image="refresh"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-sA-fMG">
-                    <rect key="frame" x="304" y="576" width="55" height="55"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="ZZn-vY-oJj"/>
-                        <constraint firstAttribute="height" constant="55" id="cvJ-fb-Ehp"/>
-                    </constraints>
-                    <state key="normal" title="Button" image="add"/>
+                    <state key="normal" image="icons8-reboot-50"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="bvC-kP-FsG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="304" id="Fp1-NF-j2J"/>
-                <constraint firstItem="iqm-sA-fMG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="304" id="JEt-eo-rcY"/>
-                <constraint firstItem="iqm-sA-fMG" firstAttribute="leading" secondItem="N6Q-aW-Lk3" secondAttribute="trailing" constant="-71" id="OPB-Pn-hKr"/>
-                <constraint firstItem="N6Q-aW-Lk3" firstAttribute="top" secondItem="bvC-kP-FsG" secondAttribute="bottom" constant="7" id="QKf-4i-dbr"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="N6Q-aW-Lk3" secondAttribute="bottom" id="UiN-At-2fe"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="N6Q-aW-Lk3" secondAttribute="trailing" id="WT3-qn-WJ6"/>
-                <constraint firstItem="bvC-kP-FsG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hnY-X2-lOO"/>
-                <constraint firstItem="iqm-sA-fMG" firstAttribute="top" secondItem="N6Q-aW-Lk3" secondAttribute="bottom" constant="-91" id="sws-rG-lLk"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bvC-kP-FsG" secondAttribute="trailing" constant="16" id="ubl-pv-9fq"/>
-                <constraint firstItem="N6Q-aW-Lk3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yuA-1l-ryU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="N6Q-aW-Lk3" secondAttribute="bottom" id="6Px-lI-mXy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bvC-kP-FsG" secondAttribute="trailing" constant="26" id="FIS-dY-3Io"/>
+                <constraint firstItem="N6Q-aW-Lk3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FmE-FZ-L4z"/>
+                <constraint firstItem="N6Q-aW-Lk3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="PSY-gI-fIl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iqm-sA-fMG" secondAttribute="trailing" constant="30" id="hTw-wO-RuZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="N6Q-aW-Lk3" secondAttribute="trailing" id="jLz-Rl-LAC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bvC-kP-FsG" secondAttribute="bottom" constant="79" id="kq4-3Y-fOY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="iqm-sA-fMG" secondAttribute="bottom" constant="20" id="zgM-fk-a98"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="105.5" y="53.5"/>
@@ -63,6 +61,6 @@
     </objects>
     <resources>
         <image name="add" width="64" height="64"/>
-        <image name="refresh" width="50" height="50"/>
+        <image name="icons8-reboot-50" width="50" height="50"/>
     </resources>
 </document>

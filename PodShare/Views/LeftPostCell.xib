@@ -67,6 +67,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="containerView" destination="tkR-pJ-nqv" id="HAm-Qz-bB5"/>
                 <outlet property="creatorNameLabel" destination="Ym0-bg-H2L" id="Bd1-AQ-QZq"/>
                 <outlet property="recordingDateLabel" destination="4Tt-s1-ksZ" id="14c-GE-lnM"/>
                 <outlet property="recordingTitleLabel" destination="FyA-zC-Abh" id="01Z-Bn-4Y3"/>

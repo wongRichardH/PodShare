@@ -19,14 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="385" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="titleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY7-NR-XWu">
-                        <rect key="frame" x="16" y="11" width="71" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="titleLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY7-NR-XWu">
+                        <rect key="frame" x="16" y="11" width="107" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateRecordedLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9v-OQ-DPu">
-                        <rect key="frame" x="16" y="40" width="150" height="21"/>
+                        <rect key="frame" x="16" y="37.5" width="150" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                             <constraint firstAttribute="width" constant="30" id="3H4-ie-VW9"/>
                             <constraint firstAttribute="height" constant="30" id="pnw-o4-tem"/>
                         </constraints>
-                        <state key="normal" image="edit"/>
+                        <state key="normal" image="editPencil"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vga-t9-ArJ">
                         <rect key="frame" x="301" y="24" width="30" height="30"/>
@@ -45,7 +45,7 @@
                             <constraint firstAttribute="width" constant="30" id="dWa-Vq-Rva"/>
                             <constraint firstAttribute="height" constant="30" id="eKv-oe-quv"/>
                         </constraints>
-                        <state key="normal" title="trash" image="trash"/>
+                        <state key="normal" title="trash" image="garbage"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mp2-wz-k4W">
                         <rect key="frame" x="339" y="24" width="30" height="30"/>
@@ -53,20 +53,20 @@
                             <constraint firstAttribute="width" constant="30" id="CKy-PM-MNd"/>
                             <constraint firstAttribute="height" constant="30" id="Xcr-I0-84e"/>
                         </constraints>
-                        <state key="normal" title="share" image="share"/>
+                        <state key="normal" image="upload"/>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="z9v-OQ-DPu" secondAttribute="bottom" constant="18.5" id="B28-Mu-wb6"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="z9v-OQ-DPu" secondAttribute="bottom" constant="18.5" id="B28-Mu-wb6"/>
+                    <constraint firstItem="JTW-vE-hq1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="z9v-OQ-DPu" secondAttribute="trailing" constant="97" id="BXh-I3-6VS"/>
                     <constraint firstItem="hY7-NR-XWu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="BnZ-7Z-A8I"/>
+                    <constraint firstItem="JTW-vE-hq1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hY7-NR-XWu" secondAttribute="trailing" constant="140" id="FsE-LJ-K8L"/>
                     <constraint firstAttribute="trailing" secondItem="Mp2-wz-k4W" secondAttribute="trailing" constant="16" id="K1z-We-7eY"/>
                     <constraint firstItem="hY7-NR-XWu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Ksd-Yw-XEv"/>
-                    <constraint firstItem="z9v-OQ-DPu" firstAttribute="top" secondItem="hY7-NR-XWu" secondAttribute="bottom" constant="8" id="NTO-JQ-ezP"/>
                     <constraint firstItem="Mp2-wz-k4W" firstAttribute="leading" secondItem="Vga-t9-ArJ" secondAttribute="trailing" constant="8" id="Scr-B7-m2g"/>
-                    <constraint firstItem="JTW-vE-hq1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hY7-NR-XWu" secondAttribute="trailing" constant="176" id="YtI-TI-IE3"/>
+                    <constraint firstItem="z9v-OQ-DPu" firstAttribute="top" secondItem="hY7-NR-XWu" secondAttribute="bottom" constant="-2.5" id="VXC-oZ-E34"/>
                     <constraint firstItem="Mp2-wz-k4W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="baF-2A-SFI"/>
                     <constraint firstItem="Vga-t9-ArJ" firstAttribute="leading" secondItem="JTW-vE-hq1" secondAttribute="trailing" constant="8" id="icT-7m-GZA"/>
-                    <constraint firstItem="JTW-vE-hq1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="z9v-OQ-DPu" secondAttribute="trailing" constant="97" id="myy-CA-IBH"/>
                     <constraint firstItem="z9v-OQ-DPu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="n6n-mN-ARY"/>
                     <constraint firstItem="Vga-t9-ArJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="qAl-1R-5pv"/>
                     <constraint firstItem="JTW-vE-hq1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="tVa-hF-bFf"/>
@@ -84,8 +84,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="edit" width="50" height="50"/>
-        <image name="share" width="50" height="50"/>
-        <image name="trash" width="50" height="50"/>
+        <image name="editPencil" width="512" height="512"/>
+        <image name="garbage" width="512" height="512"/>
+        <image name="upload" width="512" height="512"/>
     </resources>
 </document>
