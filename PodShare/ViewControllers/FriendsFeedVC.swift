@@ -23,6 +23,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem.title = "Feed"
+        self.tabBarItem.image = #imageLiteral(resourceName: "text-align-right-7")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +39,6 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     func setup() {
         self.refreshButton.addTarget(self, action: #selector(fetchRecordings), for: .touchUpInside)
         self.addButton.addTarget(self, action: #selector(addFriendButtonPressed), for: .touchUpInside)
-
         self.tableView.separatorStyle = .none
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -76,6 +76,8 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 
             dataRef.child(friendEmail).observe(.value) { (snapshot) in
                 if let file = snapshot.value as? [String: Any] {
+                    var fetchedRecordings: [FeedRecording] = []
+
                     for (_, val) in file {
                         if let fileContents = val as? [String: String] {
 
@@ -99,9 +101,11 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 
                             let eachFeedRecording = FeedRecording(creatorName: feedCreatorName, recordName: feedRecordName, timeCreated: feedTimeCreated, fileURL: feedFileURL)
 
-                            self.feedRecordings.append(eachFeedRecording)
+                            fetchedRecordings.append(eachFeedRecording)
                         }
                     }
+                    self.feedRecordings = fetchedRecordings
+
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }

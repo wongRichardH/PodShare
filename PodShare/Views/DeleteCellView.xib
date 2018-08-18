@@ -73,7 +73,7 @@
         </view>
     </objects>
     <resources>
-        <image name="warning" width="50" height="50"/>
+        <image name="warning" width="512" height="512"/>
         <image name="x" width="50" height="50"/>
     </resources>
 </document>

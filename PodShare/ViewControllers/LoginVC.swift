@@ -19,13 +19,22 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupTextFields()
+        self.setup()
     }
 
-    func setupTextFields() {
+    func setup() {
         self.passwordTextField.isSecureTextEntry = true
         self.loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         self.registerButton.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
+
+        self.loginButton.backgroundColor = UIColor(red:0.50, green:0.75, blue:0.89, alpha:1.0)
+        self.registerButton.backgroundColor = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
+
+
+        self.loginButton.setTitleColor(UIColor.white, for: .normal)
+        self.registerButton.setTitleColor(UIColor.white, for: .normal)
+
+        self.view.backgroundColor = UIColor(red:0.94, green:0.92, blue:0.84, alpha:0.98)
 
         self.emailTextField.text = "rwong@gmail.com"
         self.passwordTextField.text = "123123"
@@ -81,9 +90,9 @@ class LoginVC: UIViewController {
         let recordVC = RecordVC()
         let friendsVC = FriendsFeedVC()
         let tabBar = UITabBarController()
-        tabBar.addChildViewController(friendsVC)
-        tabBar.addChildViewController(recordVC)
 //        tabBar.addChildViewController(friendsVC)
+        tabBar.addChildViewController(recordVC)
+        tabBar.addChildViewController(friendsVC)
 
         return tabBar
     }

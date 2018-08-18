@@ -20,11 +20,19 @@
                     <rect key="frame" x="333" y="20" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="km1-vj-ta9"/>
+                        <constraint firstAttribute="height" constant="30" id="muy-1X-wY6"/>
                     </constraints>
                     <state key="normal" image="x"/>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contract" translatesAutoresizingMaskIntoConstraints="NO" id="V3n-vb-anI">
+                    <rect key="frame" x="127" y="49" width="125" height="77"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="77" id="pVv-i8-kWR"/>
+                        <constraint firstAttribute="width" constant="125" id="xXG-mL-JDV"/>
+                    </constraints>
+                </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d34-A6-2Z8">
-                    <rect key="frame" x="75" y="84" width="228" height="30"/>
+                    <rect key="frame" x="75" y="134" width="228" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="228" id="JGB-Hn-cab"/>
                     </constraints>
@@ -33,7 +41,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMD-TN-0gS">
-                    <rect key="frame" x="134" y="122" width="112" height="30"/>
+                    <rect key="frame" x="134" y="172" width="112" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="112" id="vyh-ea-SxK"/>
                     </constraints>
@@ -42,16 +50,15 @@
             </subviews>
             <color key="backgroundColor" red="0.97370070219039917" green="0.92564094066619873" blue="0.90845412015914917" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="d34-A6-2Z8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="84" id="15S-hi-DXm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="FMD-TN-0gS" secondAttribute="bottom" constant="85" id="4wy-AB-4ce"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FMD-TN-0gS" secondAttribute="trailing" constant="133" id="9ra-gt-k3U"/>
-                <constraint firstItem="FMD-TN-0gS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="134" id="Ij4-oZ-3Bc"/>
-                <constraint firstItem="d34-A6-2Z8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="75" id="Xbw-NZ-Gl3"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jMQ-ED-F31" secondAttribute="bottom" constant="187" id="d1c-VC-3dW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="d34-A6-2Z8" secondAttribute="trailing" constant="76" id="etr-ez-cZ0"/>
-                <constraint firstItem="jMQ-ED-F31" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="333" id="fzY-fe-hht"/>
-                <constraint firstItem="jMQ-ED-F31" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="gTh-GI-MDf"/>
-                <constraint firstItem="FMD-TN-0gS" firstAttribute="top" secondItem="d34-A6-2Z8" secondAttribute="bottom" constant="8" id="wpH-Ll-HVo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="FMD-TN-0gS" secondAttribute="bottom" constant="35" id="1La-yo-BQO"/>
+                <constraint firstItem="d34-A6-2Z8" firstAttribute="top" secondItem="V3n-vb-anI" secondAttribute="bottom" constant="8" id="9yw-BJ-CNV"/>
+                <constraint firstItem="jMQ-ED-F31" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="BXx-4K-wxh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jMQ-ED-F31" secondAttribute="trailing" constant="16" id="I4H-pg-arE"/>
+                <constraint firstItem="d34-A6-2Z8" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="KF8-Xa-mzv"/>
+                <constraint firstItem="FMD-TN-0gS" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="R0K-1p-Hh3"/>
+                <constraint firstItem="FMD-TN-0gS" firstAttribute="top" secondItem="d34-A6-2Z8" secondAttribute="bottom" constant="8" id="WYe-Aj-pqL"/>
+                <constraint firstItem="V3n-vb-anI" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="49" id="e7J-47-H6w"/>
+                <constraint firstItem="V3n-vb-anI" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="jAv-Ac-VI0"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -64,6 +71,7 @@
         </view>
     </objects>
     <resources>
+        <image name="contract" width="512" height="512"/>
         <image name="x" width="50" height="50"/>
     </resources>
 </document>
