@@ -13,11 +13,13 @@ class Record {
     var name: String
     var timestamp: String
     var fileURL: NSURL
+    var nsTimeStamp: Date
 
-    init(name: String, timestamp: String, fileURL: NSURL) {
+    init(name: String, timestamp: String, fileURL: NSURL, nsTimeStamp: Date) {
         self.name = name
         self.timestamp = timestamp
         self.fileURL = fileURL
+        self.nsTimeStamp = nsTimeStamp
     }
 
     
