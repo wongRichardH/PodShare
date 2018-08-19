@@ -41,8 +41,8 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                 audioRecorder.record()
                 self.recordLabel.setImage(#imageLiteral(resourceName: "icons8-stop-50"), for: .normal)
             } catch {
-                let alert = AlertPresenter(baseVC: self)
-                alert.showAlert(alertTitle: "Error Recording", alertMessage: "Reason: \(error.localizedDescription)")
+
+                self.showAlert(alertTitle: "Error Recording", alertMessage: error.localizedDescription)
             }
             //STOP Recording
         } else {
@@ -113,7 +113,7 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
             try FileManager.default.moveItem(at: originPath, to: destinationPath)
         }
         catch {
-            print("error trying to name file")
+            self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
         }
 
         cell.titleLabel.text = text
@@ -138,15 +138,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: DeleteCellViewDelegate
     func deleteAudioDidSelected(cell: DeleteCellView, cellName: String) {
-
         let cellName = cell.cellName ?? ""
-
         if let enumerator = FileManager.default.enumerator(at: getDirectory(), includingPropertiesForKeys: nil) {
-
             for file in enumerator {
                 let audioFileURL = file as! NSURL
                 let filePath = audioFileURL.path ?? ""
-
                 do {
                     let nsStringPath = filePath as NSString
                     let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
@@ -154,12 +150,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                         try FileManager.default.removeItem(atPath: filePath)
                     }
                 } catch {
-                    print(error)
+                    self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
                 }
             }
         }
         self.refreshRecordings()
-
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -182,13 +177,11 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
     // MARK: uploadAudioViewDidSelectedDelegate
     func uploadAudioDidSelected(cell: RecordCell) {
-        
         guard let currentUser = Auth.auth().currentUser else { return }
         guard let filePath = cell.fileURL?.path else { return }
 
         let userEmail = currentUser.email ?? ""
         let encodedEmail = self.encode(email: userEmail)
-        let alert = AlertPresenter(baseVC: self)
         let fileName = cell.titleLabel.text ?? ""
         let localFile = URL(fileURLWithPath: filePath)
 
@@ -196,18 +189,17 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
         let _ = fileRef.putFile(from: localFile, metadata: nil) { (metadata, error) in
             if let error = error {
-                alert.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
+                self.showAlert(alertTitle: "Error Uploading", alertMessage: error.localizedDescription)
             }
 
             if let metadata = metadata {
                 fileRef.downloadURL(completion: { (url, error) in
                     if let error = error {
-                        let alert = AlertPresenter(baseVC: self)
-                        alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+                        self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
                     }
 
                     if let url = url {
-                        let timeCreated = metadata.timeCreated?.description ?? ""
+                        let timeCreated = metadata.timeCreated?.getTimestamp() ?? ""
                         let metaDataRef = Database.database().reference().child("FileMetaData").child(encodedEmail).childByAutoId()
                         metaDataRef.setValue(["creator": userEmail])
                         metaDataRef.updateChildValues(["fileName": fileName])
@@ -216,11 +208,9 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
                     }
                 })
 
-                let alert = AlertPresenter(baseVC: self)
-                alert.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
+                self.showAlert(alertTitle: "Success", alertMessage: "Uploaded to friends!")
             }
         }
-        
     }
 
     func refreshRecordings() {
@@ -234,21 +224,22 @@ class RecordVC: UIViewController, AVAudioRecorderDelegate, UITableViewDataSource
 
                 do {
                     let attr = try FileManager.default.attributesOfItem(atPath: filePath) as? NSDictionary
-                    
-                    if let fileTimeStamp = attr?.fileCreationDate()?.description {
-                        let nsStringPath = filePath as NSString
-                        let lastComponent = nsStringPath.lastPathComponent.split(separator: ".")
-                        let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
+                    let nsStringPath = filePath as NSString
+                    let lastComponent = nsStringPath.lastPathComponent.split(separator: ".")
+                    let fileName = String(nsStringPath.lastPathComponent.split(separator: ".")[0])
+                    let nsDate = attr?.fileCreationDate()
+                    let fileTimeStamp = self.convertDate(date: (attr?.fileCreationDate()?.description)!)
 
-                        if lastComponent[0] != "DS_Store" {
-                            let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL)
-                            existingRecords.append(eachRecord)
-                        }
+                    if lastComponent[0] != "DS_Store" {
+                        let eachRecord = Record(name: fileName, timestamp: fileTimeStamp, fileURL: audioFileURL, nsTimeStamp: nsDate!)
+                        existingRecords.append(eachRecord)
                     }
+
                 } catch {
                     print(error)
                 }
             }
+            existingRecords = self.sortByDate(records: existingRecords)
             self.recordings = existingRecords
         }
     }

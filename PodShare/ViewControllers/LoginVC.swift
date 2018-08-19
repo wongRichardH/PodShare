@@ -60,8 +60,7 @@ class LoginVC: UIViewController {
         let password = self.passwordTextField.text ?? ""
 
         if email.isEmpty || password.isEmpty {
-            let presenter = AlertPresenter(baseVC: self)
-            presenter.showAlert(alertTitle: "Empty Fields", alertMessage: "Reason: Please enter valid username or password")
+            self.showAlert(alertTitle: "Empty Fields", alertMessage: "Reason: Please enter valid username or password")
             return
         }
 
@@ -80,8 +79,7 @@ class LoginVC: UIViewController {
                 let friendRef = Database.database().reference().child("Friends").child(encodedEmail)
                 friendRef.setValue(["placeholder": true])
 
-                let presenter = AlertPresenter(baseVC: self)
-                presenter.showAlert(alertTitle: "User Created!", alertMessage: "Login to continue")
+                self.showAlert(alertTitle: "User Created", alertMessage: "Login to continue")
             }
         }
     }
@@ -90,13 +88,9 @@ class LoginVC: UIViewController {
         let recordVC = RecordVC()
         let friendsVC = FriendsFeedVC()
         let tabBar = UITabBarController()
-//        tabBar.addChildViewController(friendsVC)
         tabBar.addChildViewController(recordVC)
         tabBar.addChildViewController(friendsVC)
 
         return tabBar
     }
-
-    
-
 }

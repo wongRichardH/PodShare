@@ -1,5 +1,5 @@
 //
-//  NSDate+PodShare.swift
+//  Date+PodShare.swift
 //  PodShare
 //
 //  Created by Richard on 8/8/18.
@@ -8,10 +8,9 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
 
     func getTimestamp() -> String {
-
         let currentDateTime = Date()
         let userCalendar = Calendar.current
 
@@ -29,8 +28,11 @@ extension NSDate {
         let year = String(dateTimeComponents.year!)
         let month = String(dateTimeComponents.month!)
         let day = String(dateTimeComponents.day!)
+        let hour = String(dateTimeComponents.hour! % 12)
+        let minute = String(dateTimeComponents.minute!)
+        let second = String(dateTimeComponents.second!)
 
-        let dateString = year + "-" + month + "-" + day
+        let dateString = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
 
         return dateString
     }

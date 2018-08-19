@@ -72,10 +72,10 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let dataRef = Database.database().reference().child("FileMetaData")
 
         for friendEmail in self.friendsList {
-            //observe from database now
 
             dataRef.child(friendEmail).observe(.value) { (snapshot) in
                 if let file = snapshot.value as? [String: Any] {
+
                     var fetchedRecordings: [FeedRecording] = []
 
                     for (_, val) in file {
@@ -104,6 +104,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                             fetchedRecordings.append(eachFeedRecording)
                         }
                     }
+                    fetchedRecordings = self.sortByDate(feedRecords: fetchedRecordings)
                     self.feedRecordings = fetchedRecordings
 
                     DispatchQueue.main.async {
@@ -131,7 +132,6 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
 
-
     //MARK: AddFriendDelegate
     @objc func addFriendButtonPressed() {
         let nib = UINib(nibName: "AddFriendView", bundle: nil)
@@ -139,7 +139,6 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         view.delegate = self
 
         self.addViewAndSetFrame(with: view)
-
     }
 
     func confirmFriendDidSelected(email: String) {
@@ -149,8 +148,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let encodedFriendEmail = self.encode(email: email)
 
         if currentUserEmail == email {
-            let alert = AlertPresenter(baseVC: self)
-            alert.showAlert(alertTitle: "Error", alertMessage: "Can not add yourself to be your own friend")
+            self.showAlert(alertTitle: "Error", alertMessage: "Can not add yourself to be your own friend")
             return
         }
 
@@ -164,13 +162,11 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     let dataRef = Database.database().reference().child("Friends").child(currentUserEncodedEmail)
 
                     dataRef.updateChildValues([encodedFriendEmail: true], withCompletionBlock: { (error, databaseReference) in
-                        let alert = AlertPresenter(baseVC: self)
-                        alert.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
+                        self.showAlert(alertTitle: "Success", alertMessage: "Friend Added!")
                     })
 
                 } else {
-                    let alert = AlertPresenter(baseVC: self)
-                    alert.showAlert(alertTitle: "Error", alertMessage: "Can not find email in database")
+                    self.showAlert(alertTitle: "Error", alertMessage: "Can not find email in database")
                 }
             }
         }
@@ -182,8 +178,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.audioPlayer.prepareToPlay()
             self.audioPlayer.play()
         } catch {
-            let alert = AlertPresenter(baseVC: self)
-            alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+            self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
         }
     }
 
@@ -192,8 +187,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.audioPlayer = try AVAudioPlayer(data: data)
             self.audioPlayer.play()
         } catch {
-            let alert = AlertPresenter(baseVC: self)
-            alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+            self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
         }
     }
 
@@ -203,8 +197,7 @@ class FriendsFeedVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 
         task = URLSession.shared.downloadTask(with: fileURL!, completionHandler: { (url, response, error) in
             if let error = error {
-                let alert = AlertPresenter(baseVC: self)
-                alert.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+                self.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
                 return
             }
             if let url = url {
