@@ -29,16 +29,13 @@ class LoginVC: UIViewController {
 
         self.loginButton.backgroundColor = UIColor(red:0.50, green:0.75, blue:0.89, alpha:1.0)
         self.registerButton.backgroundColor = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
-
-
         self.loginButton.setTitleColor(UIColor.white, for: .normal)
         self.registerButton.setTitleColor(UIColor.white, for: .normal)
 
         self.view.backgroundColor = UIColor(red:0.94, green:0.92, blue:0.84, alpha:0.98)
 
-        self.emailTextField.text = "rwong@gmail.com"
-        self.passwordTextField.text = "123123"
-
+        self.emailTextField.borderStyle = .roundedRect
+        self.passwordTextField.borderStyle = .roundedRect
     }
     @objc func loginButtonPressed() {
         let email = self.emailTextField.text ?? ""
