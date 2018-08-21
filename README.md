@@ -1,7 +1,12 @@
 # PodShare
 
-PodShare allows users and their friends to upload and share audio synchronously. 
+<br>
+PodShare allows users and their friends to upload and share audio synchronously.
+<br>
 Users can record audio, then upload their files to Firebase, where added friends can listen to its content.
+<br>
+To use, clone/download this repo and authenticate with Firebase to begin sharing audio.
+
 
 <br>
 <h2>Login and Recording</h2>
